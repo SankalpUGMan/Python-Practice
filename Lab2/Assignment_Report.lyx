@@ -1,0 +1,1676 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.25cm
+\topmargin 1.25cm
+\rightmargin 1.25cm
+\bottommargin 1.25cm
+\headheight 1.25cm
+\headsep 1.25cm
+\footskip 1.25cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Assignment 2 Report
+\end_layout
+
+\begin_layout Title
+Vector Operations and Functions in Python
+\end_layout
+
+\begin_layout Author
+SANKALP SAOJI 
+\end_layout
+
+\begin_layout Author
+EE16B063
+\end_layout
+
+\begin_layout Abstract
+In this assignment we learnt about vector operations and functions in python.
+ We learned how to plot graphs in python using the built in modules like
+ matplotlib and integrate using built in functions from scipy.
+ 
+\end_layout
+
+\begin_layout Abstract
+We also learnt how to implement self-made integration function using trapezoidal
+ integration.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+One of the best part of python is scientific python which is used for scientific
+ and technical computing.
+ This contains many modules like SciPy , NumPy and Matplotlib.
+ These modules together are put in a package called Pylab.
+ These modules enables Python to do almost all the things that MATLAB can
+ do and sometimes even much more.
+ From handling vectors, handling array of elements to plotting graphs, Python
+ can do all that MATLAB can do.
+\begin_inset Newline newline
+\end_inset
+
+This assignment uses these modules for the calculation of definite integrals
+ with the help of quad function, calculating inverse function of tan and
+ also many vector operations.
+\end_layout
+
+\begin_layout Subsection
+The numpy module
+\end_layout
+
+\begin_layout Standard
+NumPy module helps us to manipulate large multidimensional arrays and matrices.
+ It also enables us to do lot of mathematical operations on these arrays.
+\end_layout
+
+\begin_layout Subsection
+The scipy module
+\end_layout
+
+\begin_layout Standard
+SciPy contains modules for optimization, linear algebra, integration, interpolat
+ion, FFT, signal and image processing and other tasks common in science
+ and engineering.
+ In this assignment we have used Quad function which we imported from scipy.integ
+rate module to do definite integration of functions.
+\end_layout
+
+\begin_layout Subsection
+Plotting using matplotlib
+\end_layout
+
+\begin_layout Standard
+In this assignment we have used Pylab module which gives us the privilge
+ to do plotting almost rivalling MATLAB.
+ It gives us a lot of options to manipulate the graphs using labels, titles,
+ legends etc.
+ There is a separate module called matplotlib to plot different kind of
+ graphs.
+ It provides an object-oriented API for embedding plots into applications
+ using general-purpose GUI toolkits like Tkinter, wxPython, Qt, or GTK+.
+\end_layout
+
+\begin_layout Section
+Assignment Questions
+\end_layout
+
+\begin_layout Standard
+First the following modules were imported.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	from scipy.integrate 
+\end_layout
+
+\begin_layout Plain Layout
+
+	import quad from pylab import * 
+\end_layout
+
+\begin_layout Plain Layout
+
+	from matplotlib import pyplot as plt 
+\end_layout
+
+\begin_layout Plain Layout
+
+	import numpy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Function Definition
+\end_layout
+
+\begin_layout Standard
+The function func(t) is defined so that it can take a vector argument as
+ input and return a vector of the same size after operation.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	# Defining function   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	def func(t): 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		m = 1/(1+(float(t)**2)) 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		return m
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Vector Generation
+\end_layout
+
+\begin_layout Standard
+A vector 'x' is defined using the arange function, initiating from 0 and
+ ending at 5 in steps of 0.1.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	# Defining vector x
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	x = arange(0, 5.1, 0.1)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Plot of func(t) vs t
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	# Plotting with labels and title
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	for i in range(0, len(x)): 	
+\end_layout
+
+\begin_layout Plain Layout
+
+		plot(x[i], func(x[i]), 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.title('Plot of $1/(1+x^{2})$') 
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.xlabel('x') 
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.ylabel('$1/(1+x^{2})$') 
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.show() 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+xlabel() and ylabel() are used to label the axes.
+ 
+\end_layout
+
+\begin_layout Standard
+The title() function is used to displays title at the top of the graph.
+ The '$' sign indicates that the enclosed string is a LATEX expression.
+\end_layout
+
+\begin_layout Standard
+The show() command displays the graph.
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename array_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tan inverse function from its integral definition
+\end_layout
+
+\begin_layout Standard
+We used quad() function to integrate 
+\begin_inset Formula $\frac{1}{1+t^{2}}$
+\end_inset
+
+ as per the required range.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Scipy Integration using quad() 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+for i in range(0, len(x)): 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	integration_ans, integration_error = quad(func, 0 , x[i]) 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	print(x[i], integration_ans) 	plt.plot(x[i], integration_ans, 'ro')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The input vector x[i] is passed to the quad() function to integrate.
+\end_layout
+
+\begin_layout Standard
+Since quad function returns two values, the value of the integral and associated
+ error.
+ We are only interested in the integral value, therefore only the 1st element
+ of the array i.e.
+ the value of the integral was stored in a variable integration_ans.
+\end_layout
+
+\begin_layout Standard
+The variable stores the value of tan
+\begin_inset Formula $^{-1}$
+\end_inset
+
+x .
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Plotting of Arctan and the Integral obtained with quad()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.plot(x[0], 0 , 'ro', label = 'integral plot') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.plot(x, j, '#000000', label = 'arctan plot') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.xlabel('x') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.ylabel(' $
+\backslash
+int_{0}^{x} dx/{1+x^{2}}$') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.title('Plot of $
+\backslash
+int_{0}^{x} dx/{1+x^{2}}$ in red and arctan in black') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.legend() 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The plot of tan
+\begin_inset Formula $^{-1}$
+\end_inset
+
+x and x is shown.
+\end_layout
+
+\begin_layout Standard
+In the 2nd plot, argument 'ro' allows us to plot the data to be plotted
+ as red dots.
+\end_layout
+
+\begin_layout Standard
+The legend() command adds a legend to the graph indicating the respective
+ values shown.
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename tan_inverse.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following are the tabulated values of the plots.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
++---------------+-----------+
+\end_layout
+
+\begin_layout Plain Layout
+
+|   arctan quad |         x |
+\end_layout
+
+\begin_layout Plain Layout
+
+|---------------+-----------|
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0   | 0         |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.1 | 0.0996687 |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.2 | 0.197396  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.3 | 0.291457  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.4 | 0.380506  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.5 | 0.463648  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.6 | 0.54042   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.7 | 0.610726  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.8 | 0.674741  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.9 | 0.732815  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1   | 0.785398  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.1 | 0.832981  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.2 | 0.876058  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.3 | 0.915101  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.4 | 0.950547  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.5 | 0.982794  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.6 | 1.0122    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.7 | 1.03907   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.8 | 1.0637    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.9 | 1.08632   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2   | 1.10715   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.1 | 1.12638   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.2 | 1.14417   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.3 | 1.16067   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.4 | 1.17601   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.5 | 1.19029   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.6 | 1.20362   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.7 | 1.21609   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.8 | 1.22777   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.9 | 1.23874   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3   | 1.24905   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.1 | 1.25875   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.2 | 1.26791   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.3 | 1.27656   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.4 | 1.28474   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.5 | 1.2925    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.6 | 1.29985   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.7 | 1.30683   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.8 | 1.31347   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.9 | 1.31979   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4   | 1.32582   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.1 | 1.33156   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.2 | 1.33705   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.3 | 1.3423    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.4 | 1.34732   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.5 | 1.35213   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.6 | 1.35674   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.7 | 1.36116   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.8 | 1.3654    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.9 | 1.36948   |
+\end_layout
+
+\begin_layout Plain Layout
+
++---------------+-----------+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand verbatiminput
+filename "ak.txt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
++---------------+-----------+
+\end_layout
+
+\begin_layout Plain Layout
+
+|   arctan quad |         x |
+\end_layout
+
+\begin_layout Plain Layout
+
+|---------------+-----------|
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0   | 0         |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.1 | 0.0996687 |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.2 | 0.197396  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.3 | 0.291457  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.4 | 0.380506  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.5 | 0.463648  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.6 | 0.54042   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.7 | 0.610726  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.8 | 0.674741  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           0.9 | 0.732815  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1   | 0.785398  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.1 | 0.832981  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.2 | 0.876058  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.3 | 0.915101  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.4 | 0.950547  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.5 | 0.982794  |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.6 | 1.0122    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.7 | 1.03907   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.8 | 1.0637    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           1.9 | 1.08632   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2   | 1.10715   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.1 | 1.12638   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.2 | 1.14417   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.3 | 1.16067   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.4 | 1.17601   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.5 | 1.19029   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.6 | 1.20362   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.7 | 1.21609   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.8 | 1.22777   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           2.9 | 1.23874   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3   | 1.24905   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.1 | 1.25875   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.2 | 1.26791   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.3 | 1.27656   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.4 | 1.28474   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.5 | 1.2925    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.6 | 1.29985   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.7 | 1.30683   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.8 | 1.31347   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           3.9 | 1.31979   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4   | 1.32582   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.1 | 1.33156   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.2 | 1.33705   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.3 | 1.3423    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.4 | 1.34732   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.5 | 1.35213   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.6 | 1.35674   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.7 | 1.36116   |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.8 | 1.3654    |
+\end_layout
+
+\begin_layout Plain Layout
+
+|           4.9 | 1.36948   |
+\end_layout
+
+\begin_layout Plain Layout
+
++---------------+-----------+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Error in the integral method
+\end_layout
+
+\begin_layout Standard
+The error between the arctan function and the quad function is plotted.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Calculating error
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+integration_ans = numpy.zeros(len(x))
+\end_layout
+
+\begin_layout LyX-Code
+
+for k,i in zip(x,range(0, len(x))): 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	integration_ans[i] = quad(func, 0 , k)[0] 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	print(k, integration_ans)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+err = abs(integration_ans-j) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+abs() function is used to get absolute value of the difference between integrati
+on_ans and j.
+ i.e.
+ the values obtained from quad() and 
+\end_layout
+
+\begin_layout Standard
+the arctan() function itself.
+\end_layout
+
+\begin_layout Standard
+The graph is plotted in a semilogy plot.
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Plotting the error
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.semilogy(x, err, 'ro') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.xlabel('x') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.ylabel('$
+\backslash
+int_{0}^{x} dx/{1+x^{2}}$ error') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.title('Plot of $
+\backslash
+int_{0}^{x} dx/{1+x^{2}}$ error') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename tan_inverse_error.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Trapezoidal Integration
+\end_layout
+
+\begin_layout Standard
+Here trapezoidal integration is used to find the integration of a function.
+ According to the Trapezoidal Rule, if a function is known at points a ,
+ a + h , .
+ .
+ .
+ , b , its integral is given by
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I=\Big\{_{0.5(f(a)+f(x_{i}))+\sum_{j=1}^{i-1}f(x_{j})\qquad x=a+ih}^{0\qquad\qquad\ \ \ \qquad\qquad\qquad x=a}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This can be rewritten as 
+\begin_inset Formula 
+\[
+I_{i}=h\left(\sum_{j=1}^{i}f(x_{j})-\frac{1}{2}\left(f(x_{1})+f(x_{i})\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using a smaller value for steps ize 'h' in trapezoidal integration gives
+ more accurate values.
+ 
+\end_layout
+
+\begin_layout Standard
+The summation part can be calculated by using cumsum() function.
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Implementing Trapezoidal Integration 
+\end_layout
+
+\begin_layout LyX-Code
+
+def integ(p): 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	if (p == 0): 		
+\end_layout
+
+\begin_layout LyX-Code
+
+		I = 0 	
+\end_layout
+
+\begin_layout LyX-Code
+
+	elif (p != 0): 		
+\end_layout
+
+\begin_layout LyX-Code
+
+	add = 0 		
+\end_layout
+
+\begin_layout LyX-Code
+
+	i = int(p/h) 		
+\end_layout
+
+\begin_layout LyX-Code
+
+	for j in y[0:i]: 			
+\end_layout
+
+\begin_layout LyX-Code
+
+		add = add + j 			
+\end_layout
+
+\begin_layout LyX-Code
+
+		final = [] 			
+\end_layout
+
+\begin_layout LyX-Code
+
+		final.append(h*((add)-0.5*(y[0]) - 0.5*(y[i]))) 			
+\end_layout
+
+\begin_layout LyX-Code
+
+		I = 0 			
+\end_layout
+
+\begin_layout LyX-Code
+
+		for l in final: 				
+\end_layout
+
+\begin_layout LyX-Code
+
+			I = I + l 				
+\end_layout
+
+\begin_layout LyX-Code
+
+	return I 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A function to do trapezoidal integration is defined as integ().
+ It takes one argument whose integration is carried out as shown above.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+def x(k,a,h): 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	n = a + k*h     	
+\end_layout
+
+\begin_layout Plain Layout
+
+	return n
+\end_layout
+
+\begin_layout Plain Layout
+
+step = 0.01        				    
+\end_layout
+
+\begin_layout Plain Layout
+
+vec = (numpy.linspace(0,5,(5/step) +1),object)     
+\end_layout
+
+\begin_layout Plain Layout
+
+array = func(vec[0])				  
+\end_layout
+
+\begin_layout Plain Layout
+
+s = numpy.cumsum(array)
+\end_layout
+
+\begin_layout Plain Layout
+
+integration = step*(s-0.5*(func(x(1,0,step))+array))
+\end_layout
+
+\begin_layout Plain Layout
+
+ans = numpy.where(vec[0]==1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+print(integration[ans])
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+Above algorithm uses the cumsum() function to shorten the algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename cumsum_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Error calculation of the trapezoidal method
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+step=[0.05] vec = (numpy.linspace(0,5,(5/step[-1]) +1))
+\end_layout
+
+\begin_layout Plain Layout
+
+vec = (numpy.linspace(0,5,(5/step[-1]) +1))     		
+\end_layout
+
+\begin_layout Plain Layout
+
+array = func(vec) 
+\end_layout
+
+\begin_layout Plain Layout
+
+s = numpy.cumsum(array)
+\end_layout
+
+\begin_layout Plain Layout
+
+exact_integ = numpy.arctan(vec)
+\end_layout
+
+\begin_layout Plain Layout
+
+integ_1 = step[-1]*(s-0.5*(func(x(1,0,step[-1]))+array))
+\end_layout
+
+\begin_layout Plain Layout
+
+max_error = numpy.amax(integ_1)                                	 
+\end_layout
+
+\begin_layout Plain Layout
+
+true_error = np.amax(abs(exact_integ-integ_1))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+estimate=list()                      				 
+\end_layout
+
+\begin_layout Plain Layout
+
+exact=[true_error]
+\end_layout
+
+\begin_layout Plain Layout
+
+while max_error > 1e-8:                           		 	     
+\end_layout
+
+\begin_layout Plain Layout
+
+stepi=(step[-1])/2                        	 		 
+\end_layout
+
+\begin_layout Plain Layout
+
+vec_new = (numpy.linspace(0,5,(5/stepi) +1))  		 	
+\end_layout
+
+\begin_layout Plain Layout
+
+array_new = func(vec_new)     
+\end_layout
+
+\begin_layout Plain Layout
+
+s=numpy.cumsum(array_new)     
+\end_layout
+
+\begin_layout Plain Layout
+
+integ_2 = stepi*(s-0.5*(func(x(1,0,stepi))+array_new))       
+\end_layout
+
+\begin_layout Plain Layout
+
+tan_def = numpy.arctan(vec_new)     
+\end_layout
+
+\begin_layout Plain Layout
+
+comm = numpy.nonzero(numpy.in1d(vec_new,vec))[0]         		
+\end_layout
+
+\begin_layout Plain Layout
+
+integ_cmp = integ_2[comm]                             		
+\end_layout
+
+\begin_layout Plain Layout
+
+max_error = numpy.amax(abs(integ_1-integ_cmp))               	
+\end_layout
+
+\begin_layout Plain Layout
+
+true_error = numpy.amax(abs(integ_2-tan_def))     
+\end_layout
+
+\begin_layout Plain Layout
+
+estimate.append(max_error)                                		
+\end_layout
+
+\begin_layout Plain Layout
+
+exact.append(true_error)	     
+\end_layout
+
+\begin_layout Plain Layout
+
+integ_1 = integ_2                                     	 	
+\end_layout
+
+\begin_layout Plain Layout
+
+vec = vec_new                                      		 	
+\end_layout
+
+\begin_layout Plain Layout
+
+array = array_new                                      		
+\end_layout
+
+\begin_layout Plain Layout
+
+step.append(stepi)
+\end_layout
+
+\begin_layout Plain Layout
+
+estimate.append(0)          
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above code, I have calculated the estimated error and the exac error.
+ Following graph shos the obtained plot.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename basic_integration_error.png
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

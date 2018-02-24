@@ -1,0 +1,2673 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+LAB 3 REPORT
+\end_layout
+
+\begin_layout Title
+Fourier Approximations
+\end_layout
+
+\begin_layout Author
+Name: Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: EE16B063
+\end_layout
+
+\begin_layout Author
+Course: EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 16/02/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we got to work on fourier series and related computations.
+ We learnt to calculate the fourier series coefficients using integration
+ through 'quad' and also through matrices using 'least squares'.
+ At the end, we learnt to find the maximum deviation in the output of these
+ two methods.
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+In this week, we calculated the fourier series coefficients using,
+\end_layout
+
+\begin_layout Standard
+1) Direct Integration with 'quad'
+\end_layout
+
+\begin_layout Standard
+2) Matrices with 'least squares'
+\end_layout
+
+\begin_layout Subsection
+Functions Used:
+\end_layout
+
+\begin_layout Standard
+We fit two functions, exp(x) and cos (cos(x)) over the interval [0, 2π)
+ using the fourier series,
+\end_layout
+
+\begin_layout Standard
+a
+\begin_inset Formula $_{0}$
+\end_inset
+
++ 
+\begin_inset Formula $\sum_{1}^{\infty}$
+\end_inset
+
+{a
+\begin_inset Formula $_{n}$
+\end_inset
+
+cos(nx) + b
+\begin_inset Formula $_{n}$
+\end_inset
+
+sin(nx)}
+\end_layout
+
+\begin_layout Standard
+The coefficients a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ and b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ are given by,
+\end_layout
+
+\begin_layout Standard
+a
+\begin_inset Formula $_{0}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{1}{2\pi}$
+\end_inset
+
+
+\begin_inset Formula $\int_{0}^{2\pi}$
+\end_inset
+
+f(x)dx
+\end_layout
+
+\begin_layout Standard
+a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{1}{\pi}$
+\end_inset
+
+
+\begin_inset Formula $\int_{0}^{2\pi}$
+\end_inset
+
+f(x)cos(nx)dx
+\end_layout
+
+\begin_layout Standard
+b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{1}{\pi}$
+\end_inset
+
+
+\begin_inset Formula $\int_{0}^{2\pi}$
+\end_inset
+
+f(x)sin(nx)dx
+\end_layout
+
+\begin_layout Section
+Lab Questions
+\end_layout
+
+\begin_layout Subsection
+Function declaration and plotting:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to define the exponential and double cosine
+ function in python over an interval [-2
+\begin_inset Formula $\pi$
+\end_inset
+
+, 4
+\begin_inset Formula $\pi$
+\end_inset
+
+].
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Importing modules
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy.integrate import quad
+\end_layout
+
+\begin_layout Plain Layout
+
+from pylab import *
+\end_layout
+
+\begin_layout Plain Layout
+
+from matplotlib import pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Defining functions
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def ex(r1, r2):
+\end_layout
+
+\begin_layout Plain Layout
+
+	t = linspace(r1,r2,1000) 
+\end_layout
+
+\begin_layout Plain Layout
+
+	m = numpy.exp(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.semilogy(t, m, 'ro', label = 'exponential function')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.ylabel('$e^x$')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.title('Plot of exponential function')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def double_cos(r1, r2):
+\end_layout
+
+\begin_layout Plain Layout
+
+	t = linspace(r1,r2,1000)
+\end_layout
+
+\begin_layout Plain Layout
+
+	n = numpy.cos(cos(t))
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.figure(2)	
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.plot(t, n, 'ro', label = 'double cosine')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.ylabel('$cos(cos(x))$')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.title('Plot of double cosine function')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_deeper
+\begin_layout Verse
+\begin_inset Graphics
+	filename exponential_plot.png
+	BoundingBox 0bp 0bp 0pt 480bp
+	rotateOrigin centerBaseline
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+Since the e
+\begin_inset Formula $^{x}$
+\end_inset
+
+ varies rapidly, we use semilogy for this plot.
+ As we see from the graph, e
+\begin_inset Formula $^{x}$
+\end_inset
+
+ is not periodic.
+\end_layout
+
+\begin_deeper
+\begin_layout Verse
+\begin_inset Graphics
+	filename double_cosine.png
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+As we see from the graph, cos(cos(x)) is periodic.
+\end_layout
+
+\begin_layout Standard
+Since Fourier series approximation is accurate for periodic functions we
+ expect a accurate function to be generated for second function but not
+ for the first function.
+\end_layout
+
+\begin_layout Subsection
+Getting a required amount of coefficients:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to get 51 coefficients of the series.
+ We use a 'for' loop here.
+ We create two new function and integrate them using 'quad'.
+\end_layout
+
+\begin_layout Standard
+To integrate these, use the option in quad to pass extra arguments to the
+ function being integrated:
+\end_layout
+
+\begin_layout Standard
+rtnval=quad(u,0,2*pi,args=(k)).
+\end_layout
+
+\begin_layout Standard
+What this does is it accepts a function u(x, ...); the integration is over
+ x, but the k values is passed to the function by quad as the second argument.
+ So we define the two 
+\end_layout
+
+\begin_layout Standard
+functions as having k as their second (not first) argument.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Definig extra functions for the fourier series
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def double_cosine_cosine(x,k):
+\end_layout
+
+\begin_layout Plain Layout
+
+	n = numpy.cos(cos(x))
+\end_layout
+
+\begin_layout Plain Layout
+
+	v = n*cos(k*x)
+\end_layout
+
+\begin_layout Plain Layout
+
+	return v
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def double_cosine_sine(x,k):
+\end_layout
+
+\begin_layout Plain Layout
+
+	n = numpy.cos(cos(x))
+\end_layout
+
+\begin_layout Plain Layout
+
+	v = n*sin(k*x)
+\end_layout
+
+\begin_layout Plain Layout
+
+	return v
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Using 'for' loop and printing
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Below are exp_cosine coefficient values')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in range(0,51):
+\end_layout
+
+\begin_layout Plain Layout
+
+	e = quad(exp_cosine, 0, 2*(math.pi), args=(i))[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	print('%d : %f'% (i, e))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Below are exp_sine coefficient values')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for j in range(0,51):
+\end_layout
+
+\begin_layout Plain Layout
+
+	f = quad(exp_sine, 0, 2*(math.pi), args=(j))[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	print('%d : %f'% (j, f))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Below are double_cosine_cosine coefficient values')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for k in range(0,51):
+\end_layout
+
+\begin_layout Plain Layout
+
+	g = quad(double_cosine_cosine, 0, 2*(math.pi), args = (k))[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	print('%d : %f'% (k, g))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Below are double_cosine_sine coefficient values')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for l in range(0,51):
+\end_layout
+
+\begin_layout Plain Layout
+
+	h = quad(double_cosine_cosine, 0, 2*(math.pi), args = (l))[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	print('%d : %f'% (l, h))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the list of coefficients I obtained in my program for the two
+ different fucntions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Below are exponential cosine coefficient values:
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0 : 534.491656
+\end_layout
+
+\begin_layout Plain Layout
+
+1 : 267.245828
+\end_layout
+
+\begin_layout Plain Layout
+
+2 : 106.898331
+\end_layout
+
+\begin_layout Plain Layout
+
+3 : 53.449166
+\end_layout
+
+\begin_layout Plain Layout
+
+4 : 31.440686
+\end_layout
+
+\begin_layout Plain Layout
+
+5 : 20.557371
+\end_layout
+
+\begin_layout Plain Layout
+
+6 : 14.445720
+\end_layout
+
+\begin_layout Plain Layout
+
+7 : 10.689833
+\end_layout
+
+\begin_layout Plain Layout
+
+8 : 8.222949
+\end_layout
+
+\begin_layout Plain Layout
+
+9 : 6.518191
+\end_layout
+
+\begin_layout Plain Layout
+
+10 : 5.291997
+\end_layout
+
+\begin_layout Plain Layout
+
+11 : 4.381079
+\end_layout
+
+\begin_layout Plain Layout
+
+12 : 3.686149
+\end_layout
+
+\begin_layout Plain Layout
+
+13 : 3.144069
+\end_layout
+
+\begin_layout Plain Layout
+
+14 : 2.713156
+\end_layout
+
+\begin_layout Plain Layout
+
+15 : 2.365007
+\end_layout
+
+\begin_layout Plain Layout
+
+16 : 2.079734
+\end_layout
+
+\begin_layout Plain Layout
+
+17 : 1.843075
+\end_layout
+
+\begin_layout Plain Layout
+
+18 : 1.644590
+\end_layout
+
+\begin_layout Plain Layout
+
+19 : 1.476496
+\end_layout
+
+\begin_layout Plain Layout
+
+20 : 1.332897
+\end_layout
+
+\begin_layout Plain Layout
+
+21 : 1.209257
+\end_layout
+
+\begin_layout Plain Layout
+
+22 : 1.102045
+\end_layout
+
+\begin_layout Plain Layout
+
+23 : 1.008475
+\end_layout
+
+\begin_layout Plain Layout
+
+24 : 0.926329
+\end_layout
+
+\begin_layout Plain Layout
+
+25 : 0.853821
+\end_layout
+
+\begin_layout Plain Layout
+
+26 : 0.789500
+\end_layout
+
+\begin_layout Plain Layout
+
+27 : 0.732180
+\end_layout
+
+\begin_layout Plain Layout
+
+28 : 0.680881
+\end_layout
+
+\begin_layout Plain Layout
+
+29 : 0.634788
+\end_layout
+
+\begin_layout Plain Layout
+
+30 : 0.593220
+\end_layout
+
+\begin_layout Plain Layout
+
+31 : 0.555605
+\end_layout
+
+\begin_layout Plain Layout
+
+32 : 0.521455
+\end_layout
+
+\begin_layout Plain Layout
+
+33 : 0.490359
+\end_layout
+
+\begin_layout Plain Layout
+
+34 : 0.461963
+\end_layout
+
+\begin_layout Plain Layout
+
+35 : 0.435964
+\end_layout
+
+\begin_layout Plain Layout
+
+36 : 0.412098
+\end_layout
+
+\begin_layout Plain Layout
+
+37 : 0.390140
+\end_layout
+
+\begin_layout Plain Layout
+
+38 : 0.369890
+\end_layout
+
+\begin_layout Plain Layout
+
+39 : 0.351177
+\end_layout
+
+\begin_layout Plain Layout
+
+40 : 0.333849
+\end_layout
+
+\begin_layout Plain Layout
+
+41 : 0.317771
+\end_layout
+
+\begin_layout Plain Layout
+
+42 : 0.302828
+\end_layout
+
+\begin_layout Plain Layout
+
+43 : 0.288914
+\end_layout
+
+\begin_layout Plain Layout
+
+44 : 0.275938
+\end_layout
+
+\begin_layout Plain Layout
+
+45 : 0.263816
+\end_layout
+
+\begin_layout Plain Layout
+
+46 : 0.252476
+\end_layout
+
+\begin_layout Plain Layout
+
+47 : 0.241851
+\end_layout
+
+\begin_layout Plain Layout
+
+48 : 0.231884
+\end_layout
+
+\begin_layout Plain Layout
+
+49 : 0.222519
+\end_layout
+
+\begin_layout Plain Layout
+
+50 : 0.213711
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Below are exponential sine coefficient values:
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+1 : -267.245828
+\end_layout
+
+\begin_layout Plain Layout
+
+2 : -213.796662
+\end_layout
+
+\begin_layout Plain Layout
+
+3 : -160.347497
+\end_layout
+
+\begin_layout Plain Layout
+
+4 : -125.762742
+\end_layout
+
+\begin_layout Plain Layout
+
+5 : -102.786857
+\end_layout
+
+\begin_layout Plain Layout
+
+6 : -86.674323
+\end_layout
+
+\begin_layout Plain Layout
+
+7 : -74.828832
+\end_layout
+
+\begin_layout Plain Layout
+
+8 : -65.783588
+\end_layout
+
+\begin_layout Plain Layout
+
+9 : -58.663718
+\end_layout
+
+\begin_layout Plain Layout
+
+10 : -52.919966
+\end_layout
+
+\begin_layout Plain Layout
+
+11 : -48.191871
+\end_layout
+
+\begin_layout Plain Layout
+
+12 : -44.233792
+\end_layout
+
+\begin_layout Plain Layout
+
+13 : -40.872891
+\end_layout
+
+\begin_layout Plain Layout
+
+14 : -37.984179
+\end_layout
+
+\begin_layout Plain Layout
+
+15 : -35.475110
+\end_layout
+
+\begin_layout Plain Layout
+
+16 : -33.275745
+\end_layout
+
+\begin_layout Plain Layout
+
+17 : -31.332269
+\end_layout
+
+\begin_layout Plain Layout
+
+18 : -29.602615
+\end_layout
+
+\begin_layout Plain Layout
+
+19 : -28.053429
+\end_layout
+
+\begin_layout Plain Layout
+
+20 : -26.657938
+\end_layout
+
+\begin_layout Plain Layout
+
+21 : -25.394400
+\end_layout
+
+\begin_layout Plain Layout
+
+22 : -24.244982
+\end_layout
+
+\begin_layout Plain Layout
+
+23 : -23.194921
+\end_layout
+
+\begin_layout Plain Layout
+
+24 : -22.231889
+\end_layout
+
+\begin_layout Plain Layout
+
+25 : -21.345513
+\end_layout
+
+\begin_layout Plain Layout
+
+26 : -20.527006
+\end_layout
+
+\begin_layout Plain Layout
+
+27 : -19.768869
+\end_layout
+
+\begin_layout Plain Layout
+
+28 : -19.064671
+\end_layout
+
+\begin_layout Plain Layout
+
+29 : -18.408857
+\end_layout
+
+\begin_layout Plain Layout
+
+30 : -17.796615
+\end_layout
+
+\begin_layout Plain Layout
+
+31 : -17.223744
+\end_layout
+
+\begin_layout Plain Layout
+
+32 : -16.686569
+\end_layout
+
+\begin_layout Plain Layout
+
+33 : -16.181857
+\end_layout
+
+\begin_layout Plain Layout
+
+34 : -15.706756
+\end_layout
+
+\begin_layout Plain Layout
+
+35 : -15.258734
+\end_layout
+
+\begin_layout Plain Layout
+
+36 : -14.835543
+\end_layout
+
+\begin_layout Plain Layout
+
+37 : -14.435176
+\end_layout
+
+\begin_layout Plain Layout
+
+38 : -14.055836
+\end_layout
+
+\begin_layout Plain Layout
+
+39 : -13.695910
+\end_layout
+
+\begin_layout Plain Layout
+
+40 : -13.353945
+\end_layout
+
+\begin_layout Plain Layout
+
+41 : -13.028631
+\end_layout
+
+\begin_layout Plain Layout
+
+42 : -12.718782
+\end_layout
+
+\begin_layout Plain Layout
+
+43 : -12.423320
+\end_layout
+
+\begin_layout Plain Layout
+
+44 : -12.141266
+\end_layout
+
+\begin_layout Plain Layout
+
+45 : -11.871730
+\end_layout
+
+\begin_layout Plain Layout
+
+46 : -11.613895
+\end_layout
+
+\begin_layout Plain Layout
+
+47 : -11.367017
+\end_layout
+
+\begin_layout Plain Layout
+
+48 : -11.130412
+\end_layout
+
+\begin_layout Plain Layout
+
+49 : -10.903452
+\end_layout
+
+\begin_layout Plain Layout
+
+50 : -10.685559
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Below are double_cosine cosine coefficient values:
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0 : 4.807879
+\end_layout
+
+\begin_layout Plain Layout
+
+1 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+2 : -0.721960
+\end_layout
+
+\begin_layout Plain Layout
+
+3 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+4 : 0.015561
+\end_layout
+
+\begin_layout Plain Layout
+
+5 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+6 : -0.000132
+\end_layout
+
+\begin_layout Plain Layout
+
+7 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+8 : 0.000001
+\end_layout
+
+\begin_layout Plain Layout
+
+9 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+10 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+11 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+12 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+13 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+14 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+15 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+16 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+17 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+18 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+19 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+20 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+21 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+22 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+23 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+24 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+25 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+26 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+27 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+28 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+29 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+30 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+31 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+32 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+33 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+34 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+35 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+36 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+37 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+38 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+39 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+40 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+41 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+42 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+43 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+44 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+45 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+46 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+47 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+48 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+49 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+50 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Below are double_cosine sine coefficient values:
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0 : 4.807879
+\end_layout
+
+\begin_layout Plain Layout
+
+1 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+2 : -0.721960
+\end_layout
+
+\begin_layout Plain Layout
+
+3 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+4 : 0.015561
+\end_layout
+
+\begin_layout Plain Layout
+
+5 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+6 : -0.000132
+\end_layout
+
+\begin_layout Plain Layout
+
+7 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+8 : 0.000001
+\end_layout
+
+\begin_layout Plain Layout
+
+9 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+10 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+11 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+12 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+13 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+14 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+15 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+16 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+17 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+18 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+19 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+20 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+21 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+22 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+23 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+24 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+25 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+26 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+27 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+28 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+29 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+30 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+31 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+32 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+33 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+34 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+35 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+36 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+37 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+38 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+39 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+40 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+41 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+42 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+43 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+44 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+45 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+46 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+47 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+48 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+49 : 0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+50 : -0.000000
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Coefficients plotting for the two functions in loglog and semilog plots:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to plot the coefficients of the two functions
+ vs 'n' in loglog and in semilog plots.
+\end_layout
+
+\begin_layout Standard
+Below is the way I have plotted exponential fourier coefficients vs n.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting functions
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+a = []
+\end_layout
+
+\begin_layout Plain Layout
+
+b = []
+\end_layout
+
+\begin_layout Plain Layout
+
+value1 = (1/(2*math.pi))*quad(exp_cosine, 0, 2*(math.pi), args = (0))[0] 
+\end_layout
+
+\begin_layout Plain Layout
+
+a.append(value1)
+\end_layout
+
+\begin_layout Plain Layout
+
+b.append(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in range(1,26):								
+\end_layout
+
+\begin_layout Plain Layout
+
+	a.append((1/(math.pi))*quad(exp_cosine, 0, 2*(math.pi), args=(i))[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for j in range(1,26):
+\end_layout
+
+\begin_layout Plain Layout
+
+	b.append((1/(math.pi))*quad(exp_sine, 0, 2*(math.pi), args=(j))[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+a = list(map(abs,a))
+\end_layout
+
+\begin_layout Plain Layout
+
+b = list(map(abs,b))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.loglog(n, a, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.loglog(n, b, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('n')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Exponential fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of loglog exponential function fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(n, a, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(n, b, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('n')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Exponential fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of semilog exponential function fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the way I have plotted double cosine fourier coefficients vs n.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+A = []
+\end_layout
+
+\begin_layout Plain Layout
+
+B = []
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+value2 = (1/(2*math.pi))*quad(double_cosine_cosine, 0, 2*(math.pi), args =
+ (0))[0] 
+\end_layout
+
+\begin_layout Plain Layout
+
+A.append(value2)
+\end_layout
+
+\begin_layout Plain Layout
+
+B.append(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for k in range(1,26):
+\end_layout
+
+\begin_layout Plain Layout
+
+	A.append((1/(math.pi))*quad(double_cosine_cosine, 0, 2*(math.pi), args = (k))[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for l in range(1,26):
+\end_layout
+
+\begin_layout Plain Layout
+
+	B.append((1/(math.pi))*quad(double_cosine_sine, 0, 2*(math.pi), args = (l))[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+A = list(map(abs,A))
+\end_layout
+
+\begin_layout Plain Layout
+
+B = list(map(abs,B))
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(5)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.loglog(n, A, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.loglog(n, B, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('n')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Double Cosine fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of loglog double cosine function fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(6)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(n, A, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(n, B, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('n')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Double Cosine fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of semilog double cosine function fourier points')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename exp_semilog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Quote
+\begin_inset Graphics
+	filename exp_loglog.png
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+Above is the graph of exponential plot in semilog and loglog plots.
+ Red dot show a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values and blue dots show b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Quote
+\begin_inset Graphics
+	filename double_cosine_semilog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename double_cosine_loglog.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Above is the graph of exponential plot in semilog and loglog plots.
+ Red dot show a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values and blue dots show b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Subsection
+Fourier coefficients using Least Squares Approach:
+\end_layout
+
+\begin_layout Standard
+In this question, we were supposed to find the fourier coefficient with
+ matrices using least squares appraoch.
+ For each x
+\begin_inset Formula $_{i},$
+\end_inset
+
+ we calculate,
+\end_layout
+
+\begin_layout LyX-Code
+a
+\begin_inset Formula $_{0}$
+\end_inset
+
+ + 
+\begin_inset Formula $\sum_{1}^{25}$
+\end_inset
+
+a
+\begin_inset Formula $_{n}cos(nx_{i})$
+\end_inset
+
+ +
+\begin_inset Formula $\sum_{1}^{25}$
+\end_inset
+
+b
+\begin_inset Formula $_{n}sin(nx_{i})$
+\end_inset
+
+ ≈ f(x
+\begin_inset Formula $_{i})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename matrix.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+We solve the matrix equation,
+\end_layout
+
+\begin_layout Standard
+Ac = b
+\end_layout
+
+\begin_layout Standard
+Following is the way to create a matrix A.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Creating matrix A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = linspace(0, 2*(math.pi), 401)
+\end_layout
+
+\begin_layout Plain Layout
+
+x = x[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+b_exp = exp(x)							#order of defining a function is important
+\end_layout
+
+\begin_layout Plain Layout
+
+b_double_cosine = double_cosine(x)
+\end_layout
+
+\begin_layout Plain Layout
+
+ 								# drop last term to have a proper periodic integral
+\end_layout
+
+\begin_layout Plain Layout
+
+A = zeros((400,51))						# allocate space for A
+\end_layout
+
+\begin_layout Plain Layout
+
+A[:,0] = 1							# col 1 is all ones
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for k in range(1,26):
+\end_layout
+
+\begin_layout Plain Layout
+
+	A[:,2*k-1] = cos(k*x) 					# cos(kx) column
+\end_layout
+
+\begin_layout Plain Layout
+
+	A[:,2*k] = sin(k*x)					# sin(kx) column
+\end_layout
+
+\begin_layout Plain Layout
+
+			
+\end_layout
+
+\begin_layout Plain Layout
+
+c_exp = lstsq(A,b_exp)[0]					# the ’[0]’ is to pull out the best fit vector.
+ lstsq returns a list.
+\end_layout
+
+\begin_layout Plain Layout
+
+c_double_cosine = lstsq(A,b_double_cosine)[0]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Plotting the coefficients calculated using least squares:
+\end_layout
+
+\begin_layout Standard
+We execute,
+\end_layout
+
+\begin_layout Standard
+c=lstsq(A,b)[0]
+\end_layout
+
+\begin_layout Standard
+What this does is that it finds the “best fit” numbers that will satisfy
+ Ac = b and give us the vlaues of c in a list.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename exp_semilog_2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename exp_loglog_2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Above two are the plots for exponential functions' fourier coefficients
+ calculated using least squares.
+ Blue dot show a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values and green dots show b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename double_cosine_semilog_2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename double_cosine_loglog_2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+Above two are the plots for the double cosine functions' fourier coefficients.
+ Blue dot show a
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values and green dots show b
+\begin_inset Formula $_{n}$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Subsection
+Deviation of 'quad' calculated coefficients from the matrix calculated (using
+ least squares) fourier coefficients:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to find the deviation of the outputs of
+ the two methods.
+ There is a certain deviation in the answers of these methods.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Deviation calculation
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print('a-terms deviation in exponential')
+\end_layout
+
+\begin_layout Plain Layout
+
+print(max(map(abs,list(set(a)-set(c_exp_a)))))
+\end_layout
+
+\begin_layout Plain Layout
+
+print('b-terms deviation in exponential')
+\end_layout
+
+\begin_layout Plain Layout
+
+print(max(map(abs,list(set(b)-set(c_exp_b)))))
+\end_layout
+
+\begin_layout Plain Layout
+
+print('a-terms deviation in double_cosine')
+\end_layout
+
+\begin_layout Plain Layout
+
+print(max(map(abs,list(set(A)-set(c_double_cosine_a)))))
+\end_layout
+
+\begin_layout Plain Layout
+
+print('b-terms deviation in double_cosine')
+\end_layout
+
+\begin_layout Plain Layout
+
+print(max(map(abs,list(set(B)-set(c_double_cosine_b)))))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is the way we calculate the absolute value of the deviation.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+a-terms deviation in exponential function,
+\end_layout
+
+\begin_layout Plain Layout
+
+85.0669890181
+\end_layout
+
+\begin_layout Plain Layout
+
+b-terms deviation in exponential function,
+\end_layout
+
+\begin_layout Plain Layout
+
+85.0669890181
+\end_layout
+
+\begin_layout Plain Layout
+
+a-terms deviation in double_cosine function,
+\end_layout
+
+\begin_layout Plain Layout
+
+0.765197686558
+\end_layout
+
+\begin_layout Plain Layout
+
+b-terms deviation in double_cosine function,
+\end_layout
+
+\begin_layout Plain Layout
+
+2.59494909399e-15
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Plot comparison:
+\end_layout
+
+\begin_layout Standard
+In this question, we were supposed to calculate the value of the functions
+ using A and c matrices and then compare with the initial plots.
+\end_layout
+
+\begin_layout Standard
+Below is the code to plot and compare th values of the two functions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Comparing plots
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+exp_mult = numpy.matmul(A, c_exp)
+\end_layout
+
+\begin_layout Plain Layout
+
+double_cosine_mult = numpy.
+ matmul(A, c_double_cosine)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(x, exp_mult, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(x, b_exp, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(x, double_cosine_mult, 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(x, b_double_cosine, 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename exponential_comparison.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above plot, there is some deviation in this plot.
+ Red dots indicate the 'quad' calculated coefficients and blue dots indicate
+ those coefficients calculated using 'least squares'.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename double_cosine_comparison.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above plot, there is no deviation in this plot.
+ The plots overlap each other perfectly well.
+ Red dots indicate the 'quad' calculated coefficients and blue dots indicate
+ those coefficients calculated using 'least squares'.
+\end_layout
+
+\end_body
+\end_document

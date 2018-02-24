@@ -1,0 +1,1008 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.25cm
+\topmargin 1.25cm
+\rightmargin 1.25cm
+\bottommargin 1.25cm
+\headheight 1.25cm
+\headsep 1.25cm
+\footskip 1.25cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Assignment 2
+\begin_inset Newline newline
+\end_inset
+
+Vector Operation and Functions in Python
+\end_layout
+
+\begin_layout Author
+Udit Rawat 
+\begin_inset Newline newline
+\end_inset
+
+EE16B123
+\end_layout
+
+\begin_layout Abstract
+In this assignment we learnt about vector operations and functions in python.
+ We learned to plot graphs in python using the built in modules like numpy
+ and integrate using built in functions from scipy and also implement self
+ made integration function using trapezoidal integration.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+One of the best part of python is scientific python which is used for scientific
+ computing and technical computing.
+ This contains many modules like SciPy , NumPy and Matplotlib.
+ These modules together are put in a package called Pylab.
+ These modules enables Python to do almost all the things that MATLAB can
+ do and sometimes even much more from handling vectors to plotting graphs,
+ handling array of elements and much more.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This assignment uses these modules for the calculation of definite integrals
+ with the help of quad function, calculating inverse functions of tan and
+ also many vector operations.
+\end_layout
+
+\begin_layout Subsection
+The NumPy module
+\end_layout
+
+\begin_layout Standard
+NumPy module helps us to manipulate large multidimensional arrays and matrices.
+ It also enables us to do a lots of mathematical operations on these arrays.
+\end_layout
+
+\begin_layout Subsection
+The SciPY module
+\end_layout
+
+\begin_layout Standard
+SciPy contains modules for optimization, linear algebra, integration, interpolat
+ion, special functions, FFT, signal and image processing, ODE solvers and
+ other tasks common in science and engineering.
+ In this assignment we have used Quad function which we imported from scipy.integ
+rate module to do definite integration of functions
+\end_layout
+
+\begin_layout Subsection
+Plotting using matplotlib
+\end_layout
+
+\begin_layout Standard
+In this assignment we have used Pylab module which makes the plotting almost
+ same as that of MATLAB.
+ It gives us a lots of options to manipulate those graphs using labels,
+ titles , legends etc.
+ But there is a separate module called matplotlib to plot different kind
+ of graphs.
+ It provides an object-oriented API for embedding plots into applications
+ using general-purpose GUI toolkits like Tkinter, wxPython, Qt, or GTK+.
+\end_layout
+
+\begin_layout Section
+Questions
+\end_layout
+
+\begin_layout Standard
+First the following modules were imported 
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import math 
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy.integrate import quad
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Defining function
+\end_layout
+
+\begin_layout Standard
+The given function f(t) is defined which can take a vector argument as input
+ and return a vector of the same size.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Function Defined   
+\end_layout
+
+\begin_layout Plain Layout
+
+def f(x):
+\end_layout
+
+\begin_layout Plain Layout
+
+	return 1/(1+(x**2))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Generating vector 
+\end_layout
+
+\begin_layout Standard
+A vector 't' is defined using the arange function, initiating from 0 and
+ ending at 5 in steps of 0.1.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Defining vector t and resulting y 
+\end_layout
+
+\begin_layout Plain Layout
+
+t=np.arange(0,5,0.1) 
+\end_layout
+
+\begin_layout Plain Layout
+
+y=f(t)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Plotting f(t) vs t
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Plotting y vs t with labels and title
+\end_layout
+
+\begin_layout Plain Layout
+
+p,=plt.plot(t,y,label='$1/(1+t^{2})$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel("t") 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel("y")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend(handles=[p]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The vector y contains the output vector returned by the function f(x).
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+p,=plt.plot(t,y,label='$1/(1+t^{2})$')
+\end_layout
+
+\end_inset
+
+generates the plot but doesn't display it.
+\end_layout
+
+\begin_layout Standard
+xlabel() and ylabel() are used to label the axes.
+\end_layout
+
+\begin_layout Standard
+The title() function is used to displays title at the top of the graph.
+ The '$' sign indicates that the enclosed string is a LATEX expression.
+\end_layout
+
+\begin_layout Standard
+The show() command displays the graph.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/udit/Downloads/A2(1)/output_1_0.png
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tan inverse function from its integral definition
+\end_layout
+
+\begin_layout Standard
+We used quad() function to integrate 
+\begin_inset Formula $\frac{1}{1+t^{2}}$
+\end_inset
+
+ from 0 to t.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Scipy Integration using quad() 
+\end_layout
+
+\begin_layout LyX-Code
+
+z=[]
+\end_layout
+
+\begin_layout LyX-Code
+
+for k in range (0,50):
+\end_layout
+
+\begin_layout LyX-Code
+
+	z.append(quad(f,0,t[k])[0])
+\end_layout
+
+\begin_layout LyX-Code
+
+z1=np.arctan(t)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The input vector t[ ] is passed to the quad() function to integrate and
+ appended to the output vector z[ ].
+\end_layout
+
+\begin_layout Standard
+Since quad function returns two values, the value of the integral and assocaited
+ error.
+ We are only interested the integral value therefore only the 1st element
+ of the temp array i.e.
+ the value of the integral was stored in z[ ].
+\end_layout
+
+\begin_layout Standard
+z1[ ] stores the vector of value of tan
+\begin_inset Formula $^{-1}$
+\end_inset
+
+x .
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Plot of Arctan and the Integral 
+\end_layout
+
+\begin_layout LyX-Code
+
+quad, =plt.plot(z,'ro',label="Integration using quad()")
+\end_layout
+
+\begin_layout LyX-Code
+
+atan, =plt.plot(z1,label="Arctan(t)")
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.title("Plot of y=$1/(1+t^{2})$") 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.xlabel("t")
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.ylabel("arctan(t)")
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.legend(handles=[quad,atan],loc=4) 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The plot of tan
+\begin_inset Formula $^{-1}$
+\end_inset
+
+x and x is shown as blue line as the default.
+\end_layout
+
+\begin_layout Standard
+In the 2nd plot, argument 'ro' allows us to plot the data in z[] to be plotted
+ as red dots.
+\end_layout
+
+\begin_layout Standard
+The legend() command adds a legend to the graph indicating the respective
+ values shown.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/udit/Downloads/A2(1)/output_2_0.png
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Error in the integral method
+\end_layout
+
+\begin_layout Standard
+The error between the arctan function and the quad function is plotted.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Error Calculation 
+\end_layout
+
+\begin_layout LyX-Code
+
+e=[] 
+\end_layout
+
+\begin_layout LyX-Code
+
+for k in range (0,50):
+\end_layout
+
+\begin_layout LyX-Code
+
+	e.append(abs(z[k]-z1[k]))
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.plot(np.arange(0,50,1),e,'ro') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.title('Error in quad()') 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.semilogy() 
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A vector e[ ] is defined and the error values of integration using quad()
+ are stored in it.
+\end_layout
+
+\begin_layout Standard
+abs() funtion is used absolute value of the diffrence between z[ ] and z1[
+ ] i.e.
+ the values obtained from quad() and the arctan() function itself.
+\end_layout
+
+\begin_layout Standard
+The graph is plotted in a semilogy plot.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/udit/Downloads/A2(1)/output_3_0.png
+	lyxscale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Trapezoidal Integration
+\end_layout
+
+\begin_layout Standard
+Here trapezoidal integration is used to find the integration of a function.
+ According to the Trapezoidal Rule, if a function is known at points a ,
+ a + h , .
+ .
+ .
+ , b , its integral is given by
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I=\Big\{_{0.5(f(a)+f(x_{i}))+\sum_{j=1}^{i-1}f(x_{j})\qquad x=a+ih}^{0\qquad\qquad\ \ \ \qquad\qquad\qquad x=a}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This can be rewritten as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+I_{i}=h\left(\sum_{j=1}^{i}f(x_{j})-\frac{1}{2}\left(f(x_{1})+f(x_{i})\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using a smaller value for stepsize 'h' in trapezoidal integration gives
+ more accurate value.
+ 
+\end_layout
+
+\begin_layout Standard
+The summation part can be calculated by using cumsum() function .
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout LyX-Code
+
+#Trapezoidal Integration 
+\end_layout
+
+\begin_layout LyX-Code
+
+def I(f,l,u,h):
+\end_layout
+
+\begin_layout LyX-Code
+
+	y=f(np.arange(l,u,h))
+\end_layout
+
+\begin_layout LyX-Code
+
+	s=np.cumsum(y)
+\end_layout
+
+\begin_layout LyX-Code
+
+	return h*(s-0.5*(f(l)+y)) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A function to do trapezoidal integration is defined as I().
+ It takes four arguments, the function 'f()', lower limit 'l', upper limit
+ 'u', and the step size 'h'.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+t2=np.arange(0,5,0.01)
+\end_layout
+
+\begin_layout Plain Layout
+
+z2=I(f,0,5,0.01)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Trapezoidal Integration Comparison on Plot 
+\end_layout
+
+\begin_layout Plain Layout
+
+Q, =plt.plot(t,z,'ro', label="Integration using quad()") 
+\end_layout
+
+\begin_layout Plain Layout
+
+T, =plt.plot(t,z1,'g^',label="Trapezoidal Integration") 
+\end_layout
+
+\begin_layout Plain Layout
+
+A, =plt.plot(t2,z2,label="Arctan") 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel("y="r'$
+\backslash
+int_0^t du/(1+t^{2})$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel("t")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend(handles=[Q,T,A], loc=4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show() 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+t2[ ] is defined as a vector from 0 to 5 in steps of 0.01 .
+ z2[ ] stores the values calculated from the function I().
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/udit/output_4_0.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Error Analysis
+\end_layout
+
+\begin_layout Subsubsection
+Exact Error
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Exact Error in Trapezoidal Integration 
+\end_layout
+
+\begin_layout Plain Layout
+
+def error(h):
+\end_layout
+
+\begin_layout Plain Layout
+
+	x=np.arange(0,5,h)
+\end_layout
+
+\begin_layout Plain Layout
+
+	y=np.arctan(x)
+\end_layout
+
+\begin_layout Plain Layout
+
+	y1=I(f,0,5,h)
+\end_layout
+
+\begin_layout Plain Layout
+
+	e=abs(y1-y)
+\end_layout
+
+\begin_layout Plain Layout
+
+	return max(e)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Function error() is defined as to take stepsize 'h' as argument and give
+ the maximum error value in I() by subtracting the calulated value from
+ true value.
+\end_layout
+
+\begin_layout Subsubsection
+Estimated error
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Estimated error
+\end_layout
+
+\begin_layout Plain Layout
+
+def e_err(h):
+\end_layout
+
+\begin_layout Plain Layout
+
+	x=np.arange(0,5,h)
+\end_layout
+
+\begin_layout Plain Layout
+
+	y=I(f,0,5,h)
+\end_layout
+
+\begin_layout Plain Layout
+
+	x1=np.arange(0,5,h/2)
+\end_layout
+
+\begin_layout Plain Layout
+
+	y1=I(f,0,5,h/2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+	y1=y1[0::2] 
+\end_layout
+
+\begin_layout Plain Layout
+
+	e=abs(y1-y)
+\end_layout
+
+\begin_layout Plain Layout
+
+	return max(e)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Function e_err() is defined as to find estimated error for the stepsize
+ 'h' by calculating integral for stepsize 'h/2' and taking their difference.
+\end_layout
+
+\begin_layout Subsubsection
+Plotting error graph
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+h=0.1 				 #Initial Stepsize
+\end_layout
+
+\begin_layout Plain Layout
+
+x_e=[]				
+\end_layout
+
+\begin_layout Plain Layout
+
+y_e=[]				 #Exact Error 
+\end_layout
+
+\begin_layout Plain Layout
+
+y1_e=[]				#Estimated Error
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+while(error(2*h)>0.00000001): 
+\end_layout
+
+\begin_layout Plain Layout
+
+	x_e.append(h)
+\end_layout
+
+\begin_layout Plain Layout
+
+	y_e.append(error(h))
+\end_layout
+
+\begin_layout Plain Layout
+
+	y1_e.append(e_err(h))
+\end_layout
+
+\begin_layout Plain Layout
+
+	h=h/2 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+true, =plt.loglog(x_e,y_e,'ro',label='True Error')
+\end_layout
+
+\begin_layout Plain Layout
+
+est, =plt.loglog(x_e,y1_e,'gx',label='Estimated Error')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel("error")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel("h")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend(handles=[true, est], loc=4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show() 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+y_e[ ] and y1_e[ ] are defined as the vectors containing error values for
+ the different stepsizes.
+\end_layout
+
+\begin_layout Standard
+The stepsize is reduced by half until a threshold of 10
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+-8 
+\end_layout
+
+\end_inset
+
+is reached by the error.
+\end_layout
+
+\begin_layout Standard
+The graph is plotted on a loglog axis.
+\end_layout
+
+\begin_layout Standard
+It is observed that the order of the error decrease as the stepsize is halved.
+\end_layout
+
+\end_body
+\end_document
