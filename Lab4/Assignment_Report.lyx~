@@ -1,0 +1,1608 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+LAB 4 REPORT
+\end_layout
+
+\begin_layout Title
+Fitting Data to Models
+\end_layout
+
+\begin_layout Author
+Name: Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: EE16B063
+\end_layout
+
+\begin_layout Author
+Course: EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 27/02/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we studied the fitting of data using different models.
+ At the end, we learnt about the effect of noise on the fitting process.
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+This week’s Python assignment focussed on the following topics: 
+\end_layout
+
+\begin_layout Standard
+• Studying fitting of data using models 
+\end_layout
+
+\begin_layout Standard
+• Studying the effect of noise on the fitting process
+\end_layout
+
+\begin_layout Subsection
+Functions Used:
+\end_layout
+
+\begin_layout Standard
+We used Bessel function of the first type, J
+\begin_inset Formula $_{v}$
+\end_inset
+
+(x).
+\end_layout
+
+\begin_layout Standard
+For large x,
+\end_layout
+
+\begin_layout Standard
+J
+\begin_inset Formula $_{v}$
+\end_inset
+
+(x) ≈ 
+\begin_inset Formula $\sqrt{\frac{2}{\pi x}}cos(v-$
+\end_inset
+
+
+\begin_inset Formula $\frac{\pi x}{2}$
+\end_inset
+
+-
+\begin_inset Formula $\frac{\pi}{4}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+It looks like the following,
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename bessel_function.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Lab Questions
+\end_layout
+
+\begin_layout Subsection
+Vector generation and function declaration:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to generate a vector of 41 values from
+ 0 to 20.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Importing modules
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy.integrate import quad
+\end_layout
+
+\begin_layout Plain Layout
+
+from pylab import *
+\end_layout
+
+\begin_layout Plain Layout
+
+from matplotlib import pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Generating vector
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = linspace(0,20,41) print(x)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Declaring function and obtaining values
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def bessel(t, v):
+\end_layout
+
+\begin_layout Plain Layout
+
+	j = (sqrt(2/(math.pi)*t))*(numpy.cos(t-v*(math.pi)/2-(math.pi)/4))
+\end_layout
+
+\begin_layout Plain Layout
+
+	return j	
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+m = bessel(x, 1) print(m)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below are the values I got for the bessel function when I used the vector
+ x.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+0 : -0.000000
+\end_layout
+
+\begin_layout Plain Layout
+
+1 : -0.158842
+\end_layout
+
+\begin_layout Plain Layout
+
+2 : 0.169916
+\end_layout
+
+\begin_layout Plain Layout
+
+3 : 0.640379
+\end_layout
+
+\begin_layout Plain Layout
+
+4 : 1.057552
+\end_layout
+
+\begin_layout Plain Layout
+
+5 : 1.248544
+\end_layout
+
+\begin_layout Plain Layout
+
+6 : 1.105329
+\end_layout
+
+\begin_layout Plain Layout
+
+7 : 0.618180
+\end_layout
+
+\begin_layout Plain Layout
+
+8 : -0.116402
+\end_layout
+
+\begin_layout Plain Layout
+
+9 : -0.917648
+\end_layout
+
+\begin_layout Plain Layout
+
+10 : -1.567605
+\end_layout
+
+\begin_layout Plain Layout
+
+11 : -1.871201
+\end_layout
+
+\begin_layout Plain Layout
+
+12 : -1.713079
+\end_layout
+
+\begin_layout Plain Layout
+
+13 : -1.095300
+\end_layout
+
+\begin_layout Plain Layout
+
+14 : -0.144667
+\end_layout
+
+\begin_layout Plain Layout
+
+15 : 0.913716
+\end_layout
+
+\begin_layout Plain Layout
+
+16 : 1.810972
+\end_layout
+
+\begin_layout Plain Layout
+
+17 : 2.303654
+\end_layout
+
+\begin_layout Plain Layout
+
+18 : 2.239689
+\end_layout
+
+\begin_layout Plain Layout
+
+19 : 1.603348
+\end_layout
+
+\begin_layout Plain Layout
+
+20 : 0.526407
+\end_layout
+
+\begin_layout Plain Layout
+
+21 : -0.738876
+\end_layout
+
+\begin_layout Plain Layout
+
+22 : -1.879468
+\end_layout
+
+\begin_layout Plain Layout
+
+23 : -2.599655
+\end_layout
+
+\begin_layout Plain Layout
+
+24 : -2.697920
+\end_layout
+
+\begin_layout Plain Layout
+
+25 : -2.122613
+\end_layout
+
+\begin_layout Plain Layout
+
+26 : -0.991232
+\end_layout
+
+\begin_layout Plain Layout
+
+27 : 0.432967
+\end_layout
+
+\begin_layout Plain Layout
+
+28 : 1.802523
+\end_layout
+
+\begin_layout Plain Layout
+
+29 : 2.771009
+\end_layout
+
+\begin_layout Plain Layout
+
+30 : 3.080934
+\end_layout
+
+\begin_layout Plain Layout
+
+31 : 2.631966
+\end_layout
+
+\begin_layout Plain Layout
+
+32 : 1.511478
+\end_layout
+
+\begin_layout Plain Layout
+
+33 : -0.021516
+\end_layout
+
+\begin_layout Plain Layout
+
+34 : -1.596327
+\end_layout
+
+\begin_layout Plain Layout
+
+35 : -2.820564
+\end_layout
+
+\begin_layout Plain Layout
+
+36 : -3.378173
+\end_layout
+
+\begin_layout Plain Layout
+
+37 : -3.111006
+\end_layout
+
+\begin_layout Plain Layout
+
+38 : -2.062882
+\end_layout
+
+\begin_layout Plain Layout
+
+39 : -0.474050
+\end_layout
+
+\begin_layout Plain Layout
+
+40 : 1.273837
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename bessel_creation.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Extracting subvectors of x for different x
+\begin_inset Formula $_{0}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to do the following:
+\end_layout
+
+\begin_layout Standard
+For different x
+\begin_inset Formula $_{0}$
+\end_inset
+
+ = 0.5, 1, .
+ .
+ .
+ , 18, we had to extract the subvectors of x and find J
+\begin_inset Formula $_{1}$
+\end_inset
+
+(x) that correspond to x ≥ x 0 .
+ For each x
+\begin_inset Formula $_{0}$
+\end_inset
+
+ , we constructed the matrix corresponding to Acos(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+ ) + Bsin(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+) ≈ J
+\begin_inset Formula $_{1}$
+\end_inset
+
+(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+) and obtained the best fit of A and B.
+ Later, we obtained φ corresponding to the solution by,
+\end_layout
+
+\begin_layout Standard
+cos(
+\begin_inset Formula $\phi)$
+\end_inset
+
+= 
+\begin_inset Formula $\frac{A}{\sqrt{A^{2}+B^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hence, we predicted ν.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Getting values of v
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+w = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+v = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+d = []
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+y = linspace(0.5,18,36)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for k in y:
+\end_layout
+
+\begin_layout Plain Layout
+
+    z = numpy.arange(k,20.5,0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+    l = len(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    P = numpy.zeros((l,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+    P[:,0] = numpy.cos(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    P[:,1] = numpy.sin(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    b = spe.jv(1,z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    c = lstsq(P,b,rcond=-1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    A = c[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    B = c[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    p = (A/(numpy.sqrt(A**2+B**2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    f = numpy.arccos(p)
+\end_layout
+
+\begin_layout Plain Layout
+
+    w.append(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+    v = ((2*f)/(numpy.pi)-(1/2))
+\end_layout
+
+\begin_layout Plain Layout
+
+    d.append(v)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(v)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Plotting v values
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(y,d,'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('v')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of all v values')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the graph I obtained.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename best_fit.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Repeating above question with amplitude considered:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to us,
+\end_layout
+
+\begin_layout Standard
+A
+\begin_inset Formula $\frac{cos(x_{i})}{\sqrt{x_{i}}}$
+\end_inset
+
+ + B
+\begin_inset Formula $\frac{sin(x_{i})}{\sqrt{x_{i}}}$
+\end_inset
+
+ ≈ J
+\begin_inset Formula $_{1}$
+\end_inset
+
+(x
+\begin_inset Formula $_{i}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Changing earlier algorithm a bit considering amplitude
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for k in y:
+\end_layout
+
+\begin_layout Plain Layout
+
+    z = numpy.arange(k,20.5,0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+    l = len(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    P = numpy.zeros((l,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+    P[:,0] = numpy.cos(z)/(numpy.sqrt(z))
+\end_layout
+
+\begin_layout Plain Layout
+
+    P[:,1] = numpy.sin(z)/(numpy.sqrt(z))
+\end_layout
+
+\begin_layout Plain Layout
+
+    b = spe.jv(1,z)
+\end_layout
+
+\begin_layout Plain Layout
+
+    c = lstsq(P,b,rcond=-1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    A = c[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+    B = c[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+    p = (A/(numpy.sqrt(A**2+B**2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    f = numpy.arccos(p)
+\end_layout
+
+\begin_layout Plain Layout
+
+    w.append(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+    v = ((2*f)/(numpy.pi)-(1/2))
+\end_layout
+
+\begin_layout Plain Layout
+
+    d.append(v)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(v)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the graph I obtained.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Graphics
+	filename best_fit_amplitude.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+As we see from the above two graphs, the formula which considered amplitude
+ is far more accurate than the one which does not consider amplitude.
+\end_layout
+
+\begin_layout Subsection
+Conversion to a function:
+\end_layout
+
+\begin_layout Standard
+In this question, we were supposed to create a function with our algorithm.
+\end_layout
+
+\begin_layout Standard
+function=calcnu(x, x
+\begin_inset Formula $_{0}$
+\end_inset
+
+, model)
+\end_layout
+
+\begin_layout Standard
+Here,
+\end_layout
+
+\begin_layout Standard
+calcnu is our function,
+\end_layout
+
+\begin_layout Standard
+x is our array for which we find bessel function,
+\end_layout
+
+\begin_layout Standard
+x
+\begin_inset Formula $_{0}$
+\end_inset
+
+is our starting point,
+\end_layout
+
+\begin_layout Standard
+model means the model we want to select like the one with amplitude not
+ considered or the one with considered.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Creating a function without noise
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def calcnu(x, x0, model):
+\end_layout
+
+\begin_layout Plain Layout
+
+	if (model == 'b'):	
+\end_layout
+
+\begin_layout Plain Layout
+
+		w = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		v = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		d = []
+\end_layout
+
+\begin_layout Plain Layout
+
+		q = linspace(x0,40,81)				
+\end_layout
+
+\begin_layout Plain Layout
+
+		for k in q:
+\end_layout
+
+\begin_layout Plain Layout
+
+			z = numpy.arange(k, x[len(x)-1] + 0.5 ,0.5)     
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		l = len(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P = numpy.zeros((l,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,0] = numpy.cos(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,1] = numpy.sin(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		b = spe.jv(1,z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		c = lstsq(P,b,rcond=-1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		A = c[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		B = c[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		p = (A/(numpy.sqrt(A**2+B**2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		f = numpy.arccos(p)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		w.append(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		v = (f - (math.pi)/4)*(2/(math.pi))
+\end_layout
+
+\begin_layout Plain Layout
+
+			d.append(v)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.plot(x,d,'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.ylabel('v')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.title('Plot of all v values through model b')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	if (model == 'c'):	
+\end_layout
+
+\begin_layout Plain Layout
+
+		w = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		v = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		d = []
+\end_layout
+
+\begin_layout Plain Layout
+
+		q = linspace(x0,40,81)					
+\end_layout
+
+\begin_layout Plain Layout
+
+		for k in q:
+\end_layout
+
+\begin_layout Plain Layout
+
+			z = numpy.arange(k, x[len(x)-1] + 0.5 ,0.5)    
+\end_layout
+
+\begin_layout Plain Layout
+
+			l = len(z) 
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P = numpy.zeros((l,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,0] = numpy.cos(z)/(numpy.sqrt(z))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,1] = numpy.sin(z)/(numpy.sqrt(z))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		b = spe.jv(1,z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		c = lstsq(P,b,rcond=-1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		A = c[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		B = c[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		p = (A/(numpy.sqrt(A**2+B**2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		f = numpy.arccos(p)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		w.append(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		v = (f - (math.pi)/4)*(2/(math.pi))
+\end_layout
+
+\begin_layout Plain Layout
+
+			d.append(v)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.plot(x,d,'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.ylabel('v')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.title('Plot of all v values through model c')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+s = calcnu(x, 0.5, 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = calcnu(x, 0.5, 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(s)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(t)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The graphs are obtained as below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename model_choosing1.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename model_choosing2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Creating the function and adding noise:
+\end_layout
+
+\begin_layout Standard
+We add noise to our function created and see the difference.
+\end_layout
+
+\begin_layout LyX-Code
+function = calcnu(x,x
+\begin_inset Formula $_{0}$
+\end_inset
+
+,eps,model)
+\end_layout
+
+\begin_layout LyX-Code
+Here,
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+calcnu is our function,
+\end_layout
+
+\begin_layout Standard
+x is our array for which we find bessel function,
+\end_layout
+
+\begin_layout Standard
+x
+\begin_inset Formula $_{0}$
+\end_inset
+
+is our starting point,
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+eps means our error that is to be added,
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+model means the model we want to select like the one with amplitude not
+ considered or the one with considered.
+\end_layout
+
+\begin_layout Standard
+We add the error to our bessel function values using,
+\end_layout
+
+\begin_layout Standard
+eps*(numpy.random.randn(l)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+In the following function, the error terms is 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+b = spe.jv(1,z) + eps*(numpy.random.randn(l))
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Adding error term
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def calcnu(x, x0, eps, model):
+\end_layout
+
+\begin_layout Plain Layout
+
+	if (model == 1):	
+\end_layout
+
+\begin_layout Plain Layout
+
+		w = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		v = list()
+\end_layout
+
+\begin_layout Plain Layout
+
+		d = []
+\end_layout
+
+\begin_layout Plain Layout
+
+		q = linspace(x0,40,81)					
+\end_layout
+
+\begin_layout Plain Layout
+
+			z = numpy.arange(k, x[len(x)-1] + 0.5 ,0.5)     
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		l = len(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P = numpy.zeros((l,2))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,0] = numpy.cos(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		P[:,1] = numpy.sin(z)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		b = spe.jv(1,z) + eps*(numpy.random.randn(l))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		c = lstsq(P,b,rcond=-1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		A = c[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		B = c[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		p = (A/(numpy.sqrt(A**2+B**2)))
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		f = numpy.arccos(p)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		w.append(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+	    		v = ((2*f)/(numpy.pi)-(1/2))
+\end_layout
+
+\begin_layout Plain Layout
+
+			d.append(v)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.plot(x,d,'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.xlabel('x')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.ylabel('v')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.title('Plot of all v values through model 1')
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+		plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following two are the graphs with eps = 0.01
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename noise_depiction1.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename noise_depiction2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following two are the graphs with eps = 0.001.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename random_usage1.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename random_usage2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Even with a small eps change , there is a significant difference in the
+ graphs and the noise added.
+\end_layout
+
+\begin_layout Subsection
+Effect of model accuracy, number of measurements and effect of noise on
+ quality of fit:
+\end_layout
+
+\begin_layout Standard
+From the above discussion, we come to the following conclusion,
+\end_layout
+
+\begin_layout Standard
+a) The model which takes into account the amplitude gives more accurate
+ results (model 'c') than the one which does not include it (model 'b').
+\end_layout
+
+\begin_layout Standard
+b) We see from the graph that increasing the number of measurements gives
+ more accuracy as we approach to th actual values even more.
+\end_layout
+
+\begin_layout Standard
+c) Adding noise distorts the whole graph and there is a huge loss of accuracy.
+\end_layout
+
+\end_body
+\end_document

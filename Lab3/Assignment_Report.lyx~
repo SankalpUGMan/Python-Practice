@@ -2188,6 +2188,36 @@ Above is the graph of exponential plot in semilog and loglog plots.
  values.
 \end_layout
 
+\begin_layout Itemize
+The 
+\begin_inset Formula $b_{n}$
+\end_inset
+
+ coefficients in the second case are almost zero as the second function
+ is even and the integral involved in calculation of 
+\begin_inset Formula $b_{n}$
+\end_inset
+
+ is zero for even function.
+\end_layout
+
+\begin_layout Itemize
+Second function is periodic and thus the high order (high frequency) coefficient
+s are almost zero, whereas first function is non periodic and has some non-zero
+ high order coefficients.
+ Thus in the first case, the coefficients do not decay as quickly as the
+ coefficients for the second case.
+\end_layout
+
+\begin_layout Itemize
+The Fourier coefficients of the first function decay as order 
+\begin_inset Formula $\frac{1}{n^{2}}$
+\end_inset
+
+ and so the loglog plot is linear, whereas the Fourier coefficients of second
+ function decay exponentially and so the semilog plot is linear.
+\end_layout
+
 \begin_layout Subsection
 Fourier coefficients using Least Squares Approach:
 \end_layout
@@ -2552,6 +2582,20 @@ b-terms deviation in double_cosine function,
 
 \end_layout
 
+\begin_layout Standard
+The coefficients are almost equal for 
+\begin_inset Formula $\cos(\cos(x))$
+\end_inset
+
+, highlighting its periodic nature.
+ However, there is some deviation in the high order coefficients obtained
+ for 
+\begin_inset Formula $e^{x}$
+\end_inset
+
+ which can be explained due to its non-periodic nature.
+\end_layout
+
 \begin_layout Subsection
 Plot comparison:
 \end_layout
@@ -2667,6 +2711,34 @@ As we see from the above plot, there is no deviation in this plot.
  The plots overlap each other perfectly well.
  Red dots indicate the 'quad' calculated coefficients and blue dots indicate
  those coefficients calculated using 'least squares'.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+While reconstructing the functions, we get almost an exact match for 
+\begin_inset Formula $\cos(\cos(x))$
+\end_inset
+
+ even when we consider only the first 51 coefficients.
+ This can be supported by the fact that the coefficients decay off very
+ quickly for this function, pointing that the function has very low contribution
+ from the the high harmonics and thus it can be reconstructed almost identically
+ using first few Fourier coefficients.
+\end_layout
+
+\begin_layout Standard
+However, this is not the case for 
+\begin_inset Formula $e^{x}$
+\end_inset
+
+.
+ Due to its non-periodic nature, the Fourier coefficients do not decay rapidly
+ signifying substancial contributions from the higher harmonics.
+ But since we take only few harmonics into account we get to see a deviation
+ in values from the actual function.
 \end_layout
 
 \end_body

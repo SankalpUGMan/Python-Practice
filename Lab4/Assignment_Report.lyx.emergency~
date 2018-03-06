@@ -71,43 +71,32 @@
 \begin_body
 
 \begin_layout Title
-
-\series bold
-LAB 3 REPORT
+LAB 4 REPORT
 \end_layout
 
 \begin_layout Title
-Fourier Approximations
+Fitting Data to Models
 \end_layout
 
 \begin_layout Author
-Name: 
-\bar under
-Sankalp Saoji
+Name: Sankalp Saoji
 \end_layout
 
 \begin_layout Author
-Roll No: 
-\bar under
-EE16B063
+Roll No: EE16B063
 \end_layout
 
 \begin_layout Author
-Course: 
-\bar under
-EE2703 - Applied Programming Lab
+Course: EE2703 - Applied Programming Lab
 \end_layout
 
 \begin_layout Date
-Date: 16/02/2018
+Date: 26/02/2018
 \end_layout
 
 \begin_layout Abstract
-In this week, we got to work on fourier series and related computations.
- We learnt to calculate the fourier series coefficients using integration
- through 'quad' and also through matrices using 'least squares'.
- At the end, we learnt to find the maximum deviation in the output of these
- two methods.
+In this week, we studied the fitting of data using different models.
+ At the end, we learnt about the effect of noise on the fitting process.
 \end_layout
 
 \begin_layout Section
@@ -115,15 +104,15 @@ INTRODUCTION
 \end_layout
 
 \begin_layout Standard
-In this week, we calculated the fourier series coefficients using,
+This week’s Python assignment focussed on the following topics: 
 \end_layout
 
 \begin_layout Standard
-1) Direct Integration with 'quad'
+• Studying fitting of data using models 
 \end_layout
 
 \begin_layout Standard
-2) Matrices with 'least squares'
+• Studying the effect of noise on the fitting process
 \end_layout
 
 \begin_layout Subsection
@@ -131,88 +120,48 @@ Functions Used:
 \end_layout
 
 \begin_layout Standard
-We fit two functions, exp(x) and cos (cos(x)) over the interval [0, 2π)
- using the fourier series,
+We used Bessel function of the first type, J
+\begin_inset Formula $_{v}$
+\end_inset
+
+(x).
 \end_layout
 
 \begin_layout Standard
-a
-\begin_inset Formula $_{0}$
-\end_inset
-
-+ 
-\begin_inset Formula $\sum_{1}^{\infty}$
-\end_inset
-
-{a
-\begin_inset Formula $_{n}$
-\end_inset
-
-cos(nx) + b
-\begin_inset Formula $_{n}$
-\end_inset
-
-sin(nx)}
+For large x,
 \end_layout
 
 \begin_layout Standard
-The coefficients a
-\begin_inset Formula $_{n}$
+J
+\begin_inset Formula $_{v}$
 \end_inset
 
- and b
-\begin_inset Formula $_{n}$
+(x) ≈ 
+\begin_inset Formula $\sqrt{\frac{2}{\pi x}}cos(v-$
 \end_inset
 
- are given by,
+
+\begin_inset Formula $\frac{\pi x}{2}$
+\end_inset
+
+-
+\begin_inset Formula $\frac{\pi}{4}$
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Standard
-a
-\begin_inset Formula $_{0}$
-\end_inset
-
- = 
-\begin_inset Formula $\frac{1}{2\pi}$
-\end_inset
-
-
-\begin_inset Formula $\int_{0}^{2\pi}$
-\end_inset
-
-f(x)dx
+It looks like the following,
 \end_layout
 
-\begin_layout Standard
-a
-\begin_inset Formula $_{n}$
-\end_inset
+\begin_layout Verse
+\begin_inset Graphics
+	filename bessel_function.png
 
- = 
-\begin_inset Formula $\frac{1}{\pi}$
 \end_inset
 
 
-\begin_inset Formula $\int_{0}^{2\pi}$
-\end_inset
-
-f(x)cos(nx)dx
-\end_layout
-
-\begin_layout Standard
-b
-\begin_inset Formula $_{n}$
-\end_inset
-
- = 
-\begin_inset Formula $\frac{1}{\pi}$
-\end_inset
-
-
-\begin_inset Formula $\int_{0}^{2\pi}$
-\end_inset
-
-f(x)sin(nx)dx
 \end_layout
 
 \begin_layout Section
@@ -220,20 +169,12 @@ Lab Questions
 \end_layout
 
 \begin_layout Subsection
-Function declaration and plotting:
+Vector generation and function declaration:
 \end_layout
 
 \begin_layout Standard
-In this question we were supposed to define the exponential and double cosine
- function in python over an interval [-2
-\begin_inset Formula $\pi$
-\end_inset
-
-, 4
-\begin_inset Formula $\pi$
-\end_inset
-
-].
+In this question we were supposed to generate a vector of 41 values from
+ 0 to 20.
 \end_layout
 
 \begin_layout Standard
@@ -282,7 +223,7 @@ status open
 
 \begin_layout Plain Layout
 
-# Defining functions
+# Generating vectors
 \end_layout
 
 \begin_layout Plain Layout

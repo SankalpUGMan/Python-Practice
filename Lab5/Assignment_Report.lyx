@@ -1,0 +1,1699 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+LAB 5 REPORT
+\end_layout
+
+\begin_layout Title
+Laplace Equation
+\end_layout
+
+\begin_layout Author
+Name: 
+\bar under
+Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: 
+\bar under
+EE16B063
+\end_layout
+
+\begin_layout Author
+Course: 
+\bar under
+EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 6/03/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we tried to solve for the currents in a resistor.
+ As the currents depend on the shape of a resistor, we also tried to figure
+ out the part which gets hottest.
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+This week’s Python assignment focusses on the following resistor problem.
+\end_layout
+
+\begin_layout Standard
+A wire is soldered to the middle of a copper plate and its voltage is held
+ at 1 volt.
+ One side of the plate is grounded, while the remaining are floating.
+ The plate is 1 cm by 1 in size.
+\end_layout
+
+\begin_layout LyX-Code
+                                                       
+\begin_inset Graphics
+	filename wire_problem.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The current at each point can be described by a “current density” 
+\begin_inset Formula $\overline{J}$
+\end_inset
+
+.
+ This current density is related to the local Electric Field by the conductivity
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\overline{J}=\sigma\overline{E}
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Now the Electric field is the gradient of the potential,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\overline{E}=-\nabla\phi
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Continuity of charge yields,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla.\overline{J}=-\frac{∂\rho}{∂t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Combining these equations we obtain,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla.(-\sigma\nabla\phi)=-\frac{\text{∂}\rho}{\text{∂}t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming that our resistor contains a material of constant conductivity,
+ the equation becomes,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla^{2}\phi=\frac{1}{\sigma}\frac{\text{∂}\rho}{\text{∂}t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For DC currents, we get solution for the above problem as a Laplace equation
+ of potential as follows,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla^{2}\phi=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Numerical Solution of Laplace Equation in 2-Dimensions:
+\end_layout
+
+\begin_layout Standard
+Laplace's equation is easily transformed into a difference eqaution.
+ The equation cane be written in Cartesian coordinates as,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{\partial^{2}\phi}{\partial x^{2}}$
+\end_inset
+
+ + 
+\begin_inset Formula $\frac{\partial^{2}\phi}{\partial y^{2}}$
+\end_inset
+
+ = 0
+\end_layout
+
+\begin_layout Standard
+Assuming 
+\begin_inset Formula $\phi$
+\end_inset
+
+to be avaliable at points (x
+\begin_inset Formula $_{i}$
+\end_inset
+
+, y
+\begin_inset Formula $_{j}$
+\end_inset
+
+) , we can write,
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $\frac{\partial\phi}{\partial x}$
+\end_inset
+
+
+\begin_inset Formula $_{(x_{i},y_{j})}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{\phi(x_{i+1/2},y_{j})-\phi(x_{i-1/2},y_{j})}{\Delta x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+and,
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $\frac{\partial^{2}\phi}{\partial x^{2}}$
+\end_inset
+
+
+\begin_inset Formula $_{(x_{i},y_{j})}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{\phi(x_{i+1},y_{j})-2\phi(x_{i},y_{j})+\phi(x_{i-1},y_{j})}{\Delta x^{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+Combining this with equation of y derivatives, we obtain,
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $\phi_{i,j}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{\phi_{i+1,j}+\phi_{i-1,j}+\phi_{i,j+1}+\phi_{i,j-1}}{4}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+So, potential t any point will be the average of its neighbours.
+ But, at boundaries where the electrode is present, just put the value of
+ potential itself.
+ At boundaries where there is no electrode, the current should be tangential
+ because charge can’t leap out of the material into air.
+ Since current is proportional to the Electric Field, what this means is
+ the gradient of φ should be tangential.
+ This is implemented by requiring that φ should not vary in the normal direction.
+\end_layout
+
+\begin_layout Verse
+\begin_inset Formula $\frac{\partial\phi}{\partial n}$
+\end_inset
+
+ = 0
+\end_layout
+
+\begin_layout Section
+Lab Questions
+\end_layout
+
+\begin_layout Subsection
+Plotting the circular region of the wire
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to plot the wire as contour plot.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Importing libraries and modules
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import math
+\end_layout
+
+\begin_layout Plain Layout
+
+import scipy.special as spe
+\end_layout
+
+\begin_layout Plain Layout
+
+from pylab import *
+\end_layout
+
+\begin_layout Plain Layout
+
+import mpl_toolkits.mplot3d.axes3d as axes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Defining parameters
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Nx=25; // size along x
+\end_layout
+
+\begin_layout Plain Layout
+
+Ny=25; // size along y
+\end_layout
+
+\begin_layout Plain Layout
+
+radius=8;// radius of central lead
+\end_layout
+
+\begin_layout Plain Layout
+
+Niter=1500; // number of iterations to perform
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Allocating potential array and initializing
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+phi = []
+\end_layout
+
+\begin_layout Plain Layout
+
+phi = numpy.zeros((Ny,Nx))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Finding the circular region with meshgrid
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+a = numpy.linspace(-0.5, 0.5, Nx)
+\end_layout
+
+\begin_layout Plain Layout
+
+b = numpy.linspace(-0.5, 0.5, Ny)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+X,Y = meshgrid(a,b)
+\end_layout
+
+\begin_layout Plain Layout
+
+print X, Y
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = numpy.where(X*X + Y*Y <= 0.35*0.35)			#numpy.where stores indices of the
+ matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+phi[ii] = 1.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print phi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Plotting the contour and circular region
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+con=plt.contour(a, b, phi,inline=True)
+\end_layout
+
+\begin_layout Plain Layout
+
+clabel(con,inline=1,fontsize=10)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Contour plot of the region with potential 1 volt')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('x axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('y axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(a[ii[0]], b[ii[1]], 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('The plot of section of wire')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('x axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('y axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset Graphics
+	filename contour_plot.png
+
+\end_inset
+
+                                
+\begin_inset Graphics
+	filename wire_section.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Iterating to get the converged potential values:
+\end_layout
+
+\begin_layout Standard
+In this question we were supposed to do the following,
+\end_layout
+
+\begin_layout Standard
+For k in range (Niter),
+\end_layout
+
+\begin_layout Standard
+1) Save a copy of phi,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Saving a copy of phi
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	oldphi = phi.copy()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2) Update the phi array,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Updating phi
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	phi[1:-1,1:-1] = (0.25)*(phi[1:-1,0:-2] + phi[1:-1,2:] + phi[0:-2,1:-1]
+ + phi[2:,1:-1])
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+3) Assert boundaries,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Asserting boundaries
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	phi[1:-1,0] = phi[1:-1,1]
+\end_layout
+
+\begin_layout Plain Layout
+
+	phi[1:-1,24] = phi[1:-1,23]
+\end_layout
+
+\begin_layout Plain Layout
+
+	phi[0,1:-1] = phi[1,1:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+	phi[ii] = 1.0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+4) Find error, i.e the difference between the current phi and the phi of
+ the previous iteration.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Finding error
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	errors[k] = numpy.max(abs(phi-oldphi))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following are the graphs I obtained for errors in a normal plot, semilog
+ plot and loglog plot.
+\end_layout
+
+\begin_layout LyX-Code
+           
+\begin_inset Graphics
+	filename normal_error_plot.png
+
+\end_inset
+
+    
+\begin_inset Graphics
+	filename every_50th_point_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+           
+\begin_inset Graphics
+	filename semilog_error_plot.png
+
+\end_inset
+
+    
+\begin_inset Graphics
+	filename loglog_error_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Verse
+As seen from the graph, the errors reduce slowly.
+ From the loglog plot, we find that the plot gives a reasonably straight
+ line upto about 500 iterations, but beyond that, we get into the exponential
+ regime.
+\end_layout
+
+\begin_layout Subsection
+Combining all the plots and displaying on a single graph:
+\end_layout
+
+\begin_layout Standard
+In this question, we were supposed to extract the exponent.
+ It is an exponential decay only for larger iteration numbers.
+ 
+\end_layout
+
+\begin_layout Standard
+The fit is of the form,
+\end_layout
+
+\begin_layout Standard
+y = Ae
+\begin_inset Formula $^{Bx}$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+where y is the error and x is the number of iterations.
+\end_layout
+
+\begin_layout Standard
+So, the thing to do is to take the log.
+ Then we have,
+\end_layout
+
+\begin_layout Standard
+log(y) = log(A)+ Bx 
+\end_layout
+
+\begin_layout Standard
+That is why it looks like a straight line in a semi-log plot.
+\end_layout
+
+\begin_layout Standard
+So, now we should extract A and B.
+\end_layout
+
+\begin_layout Standard
+For that, we create two matrices of the form,
+\end_layout
+
+\begin_layout Standard
+C =
+\begin_inset Formula $\left[\begin{array}{cc}
+1 & 1\\
+1 & 2\\
+1 & 3\\
+. & .\\
+. & .\\
+. & .\\
+. & .\\
+1 & 1500
+\end{array}\right]$
+\end_inset
+
+ & M = 
+\begin_inset Formula $\left[\begin{array}{c}
+log(A)\\
+B
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We already have matrix of errors as,
+\end_layout
+
+\begin_layout Standard
+errors = 
+\begin_inset Formula $\left[\begin{array}{c}
+error_{1}\\
+error_{2}\\
+error_{3}\\
+.\\
+.\\
+.\\
+error_{1500}
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We use 'lstsq' and obtain 'A' and 'B' now.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining A and B values
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+p = [math.log(x) for x in errors]
+\end_layout
+
+\begin_layout Plain Layout
+
+C = numpy.zeros((Niter, 2))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in range(Niter):
+\end_layout
+
+\begin_layout Plain Layout
+
+	C[i,0] = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	C[i,1] = i
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+M = lstsq(C, p, rcond = -1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+e = M[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+f = M[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+A = numpy.exp(e)
+\end_layout
+
+\begin_layout Plain Layout
+
+B = f
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Also, we were asked to have three graphs,
+\end_layout
+
+\begin_layout Standard
+1) Plot of errors on semilog scale (error plot)
+\end_layout
+
+\begin_layout Standard
+2) Plot of new errors obatined as a result of using lstsq and getting the
+ error matrix again (fit 1 plot)
+\end_layout
+
+\begin_layout Standard
+3) Fit 1 plot plotted after 500th iteration (fit 2 plot).
+\end_layout
+
+\begin_layout Standard
+Here is the way its done.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining plot of errors, fit1 and fit2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+M = lstsq(C, p, rcond = -1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+e = M[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+f = M[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+A = numpy.exp(e)
+\end_layout
+
+\begin_layout Plain Layout
+
+B = f
+\end_layout
+
+\begin_layout Plain Layout
+
+error_new1 = numpy.matmul(C, M)
+\end_layout
+
+\begin_layout Plain Layout
+
+s = numpy.exp(error_new1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+q = p[500:1500]
+\end_layout
+
+\begin_layout Plain Layout
+
+D = numpy.zeros((1000, 2))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in range(1, 1000):
+\end_layout
+
+\begin_layout Plain Layout
+
+	D[i,0] = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	D[i,1] = i+500
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+N = lstsq(D, q, rcond = -1)[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+g = N[0]
+\end_layout
+
+\begin_layout Plain Layout
+
+h = N[1]
+\end_layout
+
+\begin_layout Plain Layout
+
+A_new = numpy.exp(g)
+\end_layout
+
+\begin_layout Plain Layout
+
+B_new = h
+\end_layout
+
+\begin_layout Plain Layout
+
+error_new2 = numpy.matmul(C, N)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = numpy.exp(error_new2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+r = linspace(1,1500,1500)
+\end_layout
+
+\begin_layout Plain Layout
+
+n = linspace(1,1500,1500)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(7)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(r, errors, 'r', label = 'errors')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(r, s, 'b', label = 'fit1')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogy(n, t, 'g', label = 'fit2')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of errors ,fit1 and fit2')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('Number of iterations')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Errors')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Error = abs((-A/B)*(numpy.exp(B*(Niter + 0.5))))
+\end_layout
+
+\begin_layout Plain Layout
+
+print Error
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                               
+\begin_inset Graphics
+	filename combo_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+                                                  Above is the obtained
+ plot with the given legend.
+\end_layout
+
+\begin_layout Standard
+The following are the values of A and B, I obtained,
+\end_layout
+
+\begin_layout Standard
+A = 0.0262155711103 
+\end_layout
+
+\begin_layout Standard
+B = -0.0156552640624 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+error_{k}=0.0262155711103*e^{-0.0156552640624*k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Error=\varSigma_{k=N+1}^{\infty}0.0262155711103*e^{-0.0156552640624*k}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\text{\ensuremath{Error≈}}\int_{N+0.5}^{\infty}0.0262155711103*e^{-0.0156552640624*k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Error=\frac{0.0262155711103}{0.0156552640624}exp(-0.0156552640624(N+0.5))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For N=500, we get 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Error<0.000662219600621
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Error went from .62 to .00066 in 500 iterations which can be explained by
+ half life of the exponential.
+\end_layout
+
+\begin_layout Standard
+Half-Life time of the decaying exponential is 
+\begin_inset Formula $\frac{1}{B}=64$
+\end_inset
+
+.
+ And 
+\begin_inset Formula $0.00066/64$
+\end_inset
+
+=
+\begin_inset Formula $1.03*10^{-5}$
+\end_inset
+
+which can be understood as rate of decrease of error with number of iterations.
+ The
+\end_layout
+
+\begin_layout Standard
+profile was changing very little with every iteration, but was continuously
+ changing.
+ So the cumulative error was still large.
+\end_layout
+
+\begin_layout Standard
+That's why, this method of solving Laplace’s Equation is known to be worst
+ one of all the available.
+ This is because of the very slow coefficient with which the error reduces.
+\end_layout
+
+\begin_layout Subsection
+Obtaining surface plot of potential:
+\end_layout
+
+\begin_layout Standard
+In this question, we were asked to create the surface plot of potential.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Creating a surface plot of potential
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure = figure(8)
+\end_layout
+
+\begin_layout Plain Layout
+
+plotting = axes.Axes3Dfigure) 											 #Axes3D is the means to do a surface
+ plot
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('The 3-D surface plot of the potential')
+\end_layout
+
+\begin_layout Plain Layout
+
+surf = plotting.plot_surface(Y, X, phi.T, rstride=1, cstride=1, cmap=cm.jet)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                                The surface plot is obtained
+ as below.
+\end_layout
+
+\begin_layout LyX-Code
+                                          
+\begin_inset Graphics
+	filename potential_surface_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Obtaining the contour plot of potential:
+\end_layout
+
+\begin_layout Standard
+Here, we had to plot the contour plot of potential.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Creating a contour plot of potential
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(9)
+\end_layout
+
+\begin_layout Plain Layout
+
+contour = plt.contour(a, -b, phi,inline=True)
+\end_layout
+
+\begin_layout Plain Layout
+
+clabel(contour,inline=1.0 , fontsize=10)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Contour plot of potential')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('x axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('y axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                                    Following is the obtained
+ contour plot.
+\end_layout
+
+\begin_layout LyX-Code
+                                             
+\begin_inset Graphics
+	filename potential_contour_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Obtaining the vector plot of potential:
+\end_layout
+
+\begin_layout Standard
+We were supposed to create the vector plot of potential.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Creating a vector plot of potential
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Jx = zeros((Ny,Nx))										 #always initialize to zero before playing
+ with matrices 			
+\end_layout
+
+\begin_layout Plain Layout
+
+Jy = zeros((Ny,Nx))
+\end_layout
+
+\begin_layout Plain Layout
+
+Jy[1:-1,1:-1] = -0.5*(phi[1:-1,0:-2]-phi[1:-1,2:])
+\end_layout
+
+\begin_layout Plain Layout
+
+Jx[1:-1,1:-1] = -0.5*(phi[0:-2,1:-1]-phi[2:,1:-1])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(a[ii[0]], b[ii[1]], 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+quiver(b, a, Jy[::-1,:], Jx[::-1,:])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('The vector plot of potential')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('x axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('y axis')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                                    Following is the obtained
+ vector plot.
+\end_layout
+
+\begin_layout LyX-Code
+                                            
+\begin_inset Graphics
+	filename potential_vector_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Finding heat generated
+\end_layout
+
+\begin_layout Standard
+At last, we had to find how the heat is generated in the plate as result
+ of current flowing through the resistor.
+\end_layout
+
+\begin_layout Standard
+Assuming the conductivity 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is 1,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla.(\kappa\nabla T)=q=|J|^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Finding the heat generated
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+q = Jx**2 + Jy**2 												#the value of sigma is taken to be 1
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(11)							         		
+\end_layout
+
+\begin_layout Plain Layout
+
+contour1 = plt.contour(b,-a, q, inline = True)
+\end_layout
+
+\begin_layout Plain Layout
+
+clabel(contour1,inline = 1,fontsize = 10)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('The plot of heat generated and temperature variation')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                            
+\begin_inset Graphics
+	filename heat_and_temperature_variation.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The heat generated gives rise to the temperature variation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+A= 0.0262155711103 B= 0.0156552640624
+\end_layout
+
+\begin_layout Plain Layout
+
+A= 0.0260439874602 B= 0.0156480693697
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
