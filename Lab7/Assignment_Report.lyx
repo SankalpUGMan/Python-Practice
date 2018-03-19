@@ -1,0 +1,1606 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+LAB 7 REPORT
+\end_layout
+
+\begin_layout Title
+The Laplace Transform
+\end_layout
+
+\begin_layout Author
+Name: 
+\bar under
+Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: 
+\bar under
+EE16B063
+\end_layout
+
+\begin_layout Author
+Course: 
+\bar under
+EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 19/03/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we looked at how to analyse mechanical examples of “Linear
+ Time-invariant Systems” with numerical tools in Python.
+ LTI systems are what Electrical Engineers spend most of their time thinking
+ about - linear circuit analysis or communication channels for example.
+ 
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+All the problems in the assignment are in “continuous time” and will use
+ Laplace Transforms.
+ Python has a Signals toolbox which is very useful and complete.
+ In this assignment, we explored the following commands:
+\end_layout
+
+\begin_layout LyX-Code
+                                         
+\series bold
+ Command
+\series default
+    
+\series bold
+              Description               Example
+\end_layout
+
+\begin_layout LyX-Code
+                                          1)poly1d                 Defines
+ polynomials       p = poly1d([1, 2, 3])
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+                                      2)polyadd                Adds the
+ polynomials      q = polyadd([1, 2], [9, 5, 4])
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+                                          3)polymul                Multiplies
+ polynomials    r = polymul([1,2],[9,5,4])
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+For importing signal toolbox, we do,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                   import
+ scipy.signal as sp      
+\end_layout
+
+\begin_layout Standard
+Following are the various commnds that we explored in scipy.signal module,
+\end_layout
+
+\begin_layout LyX-Code
+
+\series bold
+                                Command
+\series default
+    
+\series bold
+                       Description                         Example
+\end_layout
+
+\begin_layout LyX-Code
+                                1)sp.lti                          Defines
+ a transfer function         H=sp.lti([1,2,1],[1,2,1,1])
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+                                                                       
+                           [Declaring three variables like,            
+                                                                       
+                                    w,S,phi = H.bode() helps us get the 
+                                                                       
+                                            phase and frequency of the transfer
+                                                                       
+                                             function as well.
+ For subplot, we do,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                           subplot(2,1,1)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                           semilogx(w,S) 
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                           subplot(2,1,2) 
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                           semilogx(w,phi)
+\end_layout
+
+\end_deeper
+\begin_layout LyX-Code
+                                                                 
+\end_layout
+
+\begin_layout LyX-Code
+                                2)sp.impulse                      Computes
+ the impulse response       t,x=sp.impulse(H,None,                      
+  
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  of the
+ transfer function            linspace(0,10,101)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                               [Giving a particular range of t using
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                               linspace helps us in getting the 
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                               selected x values only]
+\end_layout
+
+\begin_layout LyX-Code
+                                  
+\end_layout
+
+\begin_layout LyX-Code
+                                3)sp.lsim                         Calculates
+ the convolution          t=linspace(0,10,101)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  of given
+ functions                  u=sin(t)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                               t,y,svec=sp.lsim(H,u,t)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                       
+                               We get the convolution of u and t.
+\end_layout
+
+\begin_layout Section
+INITIALIZATION
+\end_layout
+
+\begin_layout Subsection
+Importing Libraries and Modules :
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Importing libraries and modules
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy
+\end_layout
+
+\begin_layout Plain Layout
+
+from pylab import *
+\end_layout
+
+\begin_layout Plain Layout
+
+import math
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import scipy.signal as sp
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+QUESTIONS
+\end_layout
+
+\begin_layout Subsection
+Getting x(t) from its impulse response and plotting:
+\end_layout
+
+\begin_layout LyX-Code
+                                                          f(t) = cos(1.5t)e
+\begin_inset Formula $^{-0.5t}$
+\end_inset
+
+u
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t)
+\end_layout
+
+\begin_layout LyX-Code
+Laplace Transform of f(t) is,
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+                                                      F(s) = 
+\begin_inset Formula $\frac{s+0.5}{(s+0.5)^{2}+2.25}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+We had to solve for the time response of a spring satisfying,
+\end_layout
+
+\begin_layout LyX-Code
+                                                          
+\begin_inset Formula $\frac{d^{2}x}{dt^{2}}$
+\end_inset
+
+ + 2.25x = f(t)
+\end_layout
+
+\begin_layout LyX-Code
+                                                           x(0) = 0, 
+\begin_inset Formula $\frac{dx}{dt}$
+\end_inset
+
+ = 0
+\end_layout
+
+\begin_layout LyX-Code
+                                                           0<t<50
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining f(t) and x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining f(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+F_num = poly1d([1,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+F_denom = poly1d([1,1,2.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+F = sp.lti(F_num, F_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_f, f = sp.impulse(F, None, linspace(0,50,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+         
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+       
+\end_layout
+
+\begin_layout Plain Layout
+
+X_num = F_num
+\end_layout
+
+\begin_layout Plain Layout
+
+X_denom = polymul([1,0,2.25], F_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+X = sp.lti(X_num, X_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_x, x = sp.impulse(X, None, linspace(0,50,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+x[0] = 0
+\end_layout
+
+\end_inset
+
+In the above code, I have obtained f(t) and x(t) from their impulse responses
+ using 'sp.impulse'.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting f(t) and x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting f(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_f,f)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of f(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('f(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_x,x)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+     
+\begin_inset Graphics
+	filename f(t).png
+
+\end_inset
+
+                     
+\begin_inset Graphics
+	filename x(t).png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These are the plots I obtained.
+\end_layout
+
+\begin_layout Subsection
+Getting a changed x(t) from its impulse response and plotting:
+\end_layout
+
+\begin_layout Standard
+Now, 
+\end_layout
+
+\begin_layout LyX-Code
+                                                          f(t) = cos(1.5t)e
+\begin_inset Formula $^{-0.05t}$
+\end_inset
+
+u
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t)
+\end_layout
+
+\begin_layout Standard
+We have a lesser decay this time.
+ So, we had to solve for the response of the spring.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining new f(t) and new x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining new f(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+F_new_num = poly1d([1,0.05])
+\end_layout
+
+\begin_layout Plain Layout
+
+F_new_denom = poly1d([1,0.1,2.2525])
+\end_layout
+
+\begin_layout Plain Layout
+
+F_new = sp.lti(F_new_num, F_new_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_new_f, f_new = sp.impulse(F_new, None, linspace(0,50,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+         
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining new x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+X_new_num = F_new_num
+\end_layout
+
+\begin_layout Plain Layout
+
+X_new_denom = polymul([1,0,2.25], F_new_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+X_new = sp.lti(X_new_num, X_new_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_new_x, x_new = sp.impulse(X_new, None, linspace(0,50,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+x_new[0] = 0
+\end_layout
+
+\end_inset
+
+In the above code, I have obtained the new f(t) and x(t) from their impulse
+ responses using 'sp.impulse'.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting new f(t) and new x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting new f(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_new_f,f_new)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of new f(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('New f(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting new x(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_new_x,x_new)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of new x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('New x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+     
+\begin_inset Graphics
+	filename New f(t).png
+
+\end_inset
+
+                       
+\begin_inset Graphics
+	filename New x(t).png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Varying the frequency of the cosine and plotting:
+\end_layout
+
+\begin_layout Standard
+In this the problem, we conidered f (t) is the input, and x(t) is the output.
+ We had to obtain the system transfer function X(s)/F(s) using signal.lsim
+ to simulate the problem.
+ We had to vary the frequency of the cosine in f (t) from 1.4 to 1.6 in steps
+ of 0.05 keeping the exponent as exp(−0.05t) and plot the resulting responses.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining x(t) from sp.lsim
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining x(t) from sp.lsim
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+H = sp.lti(polymul(X_num,F_denom), polymul(X_denom, F_num))
+\end_layout
+
+\begin_layout Plain Layout
+
+t_in = linspace(0,50,1001)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_sim, x_sim, vec = sp.lsim(H, f, t_in)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting x(t) obtained from sp.lsim
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_sim, x_sim)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of x(t) obtained using sp.lsim')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('x(t) (obtained from sp.lsim)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I have obtained x(t) from sp.lsim so as to show the accuracy of this method.
+ As we see from below plot, x(t) obtained is very accurate.
+\end_layout
+
+\begin_layout LyX-Code
+                                              
+\begin_inset Graphics
+	filename x(t) from sp.lsim.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, we had to plot x(t) in a for loop with varying frequency each time.
+ So, we do,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting in for loop
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+omega = linspace(1.4, 1.6, 5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in omega:
+\end_layout
+
+\begin_layout Plain Layout
+
+	F_new_num2 = poly1d([1,0.05])
+\end_layout
+
+\begin_layout Plain Layout
+
+	F_new_denom2 = poly1d([1,0.1,i*i + 0.0025])
+\end_layout
+
+\begin_layout Plain Layout
+
+	F_new2 = sp.lti(F_new_num2, F_new_denom2)
+\end_layout
+
+\begin_layout Plain Layout
+
+	t_new_f2, f_new2 = sp.impulse(F_new2, None, linspace(0,50,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+	t = linspace(0,50,1001)
+\end_layout
+
+\begin_layout Plain Layout
+
+	t_new_sim, x_sim2, vec_sim = sp.lsim(H,f_new2, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+	figure(5)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.plot(t_new_sim, x_sim2, label = '%s frequency' %i)
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.title('Plot of x(t) with varying frequencies 
+\backslash
+n The values across colored lines are the cosine frequencies')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.ylabel('Varying x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+	plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()	
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                              
+\begin_inset Graphics
+	filename For_Loop Plots.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the graph, we get the peak at 1.5 frequency.
+ So, 1.5 is the resonant frequency of the function.
+\end_layout
+
+\begin_layout Subsection
+Solving the coupled spring problem:
+\end_layout
+
+\begin_layout Standard
+Given equations are,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  ẍ + (x
+ − y) = 0
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  ÿ + 2(y
+ − x) = 0
+\end_layout
+
+\begin_layout Standard
+where the initial condition is,
+\end_layout
+
+\begin_layout LyX-Code
+                                                          x(0) = 1, ẋ(0)
+ = y(0) = ẏ(0) = 0
+\end_layout
+
+\begin_layout Standard
+After substituting and solving, we get a fourth order equation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Solving the coupled equations and getting x(t) and y(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+X_coup_num = poly1d([1, 0, 2])
+\end_layout
+
+\begin_layout Plain Layout
+
+X_coup_denom = poly1d([1,0,3,0])
+\end_layout
+
+\begin_layout Plain Layout
+
+X_coup = sp.lti(X_coup_num, X_coup_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y_coup_num = poly1d([2])
+\end_layout
+
+\begin_layout Plain Layout
+
+Y_coup_denom = poly1d([1,0,3,0])
+\end_layout
+
+\begin_layout Plain Layout
+
+Y_coup = sp.lti(Y_coup_num, Y_coup_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_coup_x, x_coup = sp.impulse(X_coup, None, linspace(0,20,1001))
+\end_layout
+
+\begin_layout Plain Layout
+
+t_coup_y, y_coup = sp.impulse(Y_coup, None, linspace(0,20,1001))
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I have solved for x(t) and y(t) as above.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting x(t) and y(t) from the coupled equations
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(6)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_coup_x, x_coup)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of x(t) obtained after solving coupled equations')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Coupled x(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(7)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_coup_y, y_coup)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of y(t) obtained after solving coupled equations')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Coupled y(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+            
+\begin_inset Graphics
+	filename Coupled x(t).png
+
+\end_inset
+
+          
+\begin_inset Graphics
+	filename Coupled y(t).png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above are the graphs I obtained.
+\end_layout
+
+\begin_layout Subsection
+Obtaining the magintude and phase plots of the steady state response of
+ a given network :
+\end_layout
+
+\begin_layout Standard
+Below is the two port network whose steady state function we wish to find,
+\end_layout
+
+\begin_layout LyX-Code
+                                                
+\begin_inset Graphics
+	filename Circuit.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After solving, I got the transfer function as follows,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Solving for the steady state response of the two port network
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+T = sp.lti(poly1d([1]), poly1d([10**-12, 10**-4, 1]))
+\end_layout
+
+\begin_layout Plain Layout
+
+omega_transfer, mag, phi = T.bode()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+T.bode() helps separating T and get 'magnitude' and 'phase'.
+ Here, python gives us the magnitude in decibels.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting the magnitude and phase of the transfer function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(8)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogx(omega_transfer, mag)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of magnitude and phase of the transfer function')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('w in log scale')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Magnitude')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot( 2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.semilogx(omega_transfer, phi)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('w in log scale')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Phase')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below are the obtained plots as a subplot,
+\end_layout
+
+\begin_layout LyX-Code
+                                            
+\begin_inset Graphics
+	filename Magnitude_Phase_Plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+                                   Magnitude and phase plot of the transfer
+ function of the two port network.
+\end_layout
+
+\begin_layout Subsection
+Getting vo(t) when an input has been declared:
+\end_layout
+
+\begin_layout Standard
+We had given the following input signal to the above two-port network,
+\end_layout
+
+\begin_layout LyX-Code
+                                          v
+\begin_inset Formula $_{i}$
+\end_inset
+
+(t) = cos(10
+\begin_inset Formula $^{3}$
+\end_inset
+
+t)u(t) - cos(10
+\begin_inset Formula $^{6}$
+\end_inset
+
+t)u(t)
+\end_layout
+
+\begin_layout Standard
+We needed to capture the fast variation and so, the time step chosen was
+ smaller than 10 
+\begin_inset Formula $^{-6}$
+\end_inset
+
+.
+ We must see the slow time and so, I simulated till about 10 msec.
+ Since the network is resistive, the current at t = 0
+\begin_inset Formula $^{-}$
+\end_inset
+
+ decayed to zero, which gives us our initial condition.
+ Below is the way I have obtained v
+\begin_inset Formula $_{o}$
+\end_inset
+
+(t).
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining vo of the function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo = linspace(0,0.01,100001)			
+\end_layout
+
+\begin_layout Plain Layout
+
+vi = cos((10**3)*t_vo) - cos((10**6)*t_vo)					
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer, vo, vec_transfer = sp.lsim(T, vi, t_vo)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Shown below is the procedure for plotting v_out,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting vo
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+figure(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_transfer, vo)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of Vo')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('Vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following are the obtained plots,
+\end_layout
+
+\begin_layout LyX-Code
+                                          
+\begin_inset Graphics
+	filename Vo(t).png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below are the sections of the above plot, we can clearly see the ripple
+ in the plots,
+\end_layout
+
+\begin_layout LyX-Code
+        
+\end_layout
+
+\begin_layout LyX-Code
+          
+\begin_inset Graphics
+	filename Vo(t) Section.png
+
+\end_inset
+
+          
+\begin_inset Graphics
+	filename Vo(t) Ripple.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above graphs, the grapg of v
+\begin_inset Formula $_{o}$
+\end_inset
+
+(t) is composed of two parts,
+\end_layout
+
+\begin_layout Standard
+1) The natural response of the system which continues upto about 30
+\begin_inset Formula $\mu s$
+\end_inset
+
+ (this response comes into picture due to the sudden application of input
+ v
+\begin_inset Formula $_{i}(t)$
+\end_inset
+
+ to the steady system) and,
+\end_layout
+
+\begin_layout Standard
+2) The cosine part which we obtain due to filtering from the low pass filter.
+\end_layout
+
+\begin_layout Standard
+There are a lot of ripples present due to the non-ideal low pass filter
+ as shown in the graph.
+\end_layout
+
+\end_body
+\end_document
