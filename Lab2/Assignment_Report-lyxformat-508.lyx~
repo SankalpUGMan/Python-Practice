@@ -79,7 +79,9 @@
 \begin_body
 
 \begin_layout Title
-Assignment 2 Report
+
+\series bold
+Lab 2 Report
 \end_layout
 
 \begin_layout Title
@@ -87,10 +89,14 @@ Vector Operations and Functions in Python
 \end_layout
 
 \begin_layout Author
+
+\bar under
 SANKALP SAOJI 
 \end_layout
 
 \begin_layout Author
+
+\bar under
 EE16B063
 \end_layout
 

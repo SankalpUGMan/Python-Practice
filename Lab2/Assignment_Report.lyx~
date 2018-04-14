@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -21,6 +21,8 @@
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -50,6 +52,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -65,7 +68,10 @@
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -79,7 +85,9 @@
 \begin_body
 
 \begin_layout Title
-Assignment 2 Report
+
+\series bold
+Lab 2 Report
 \end_layout
 
 \begin_layout Title
@@ -87,11 +95,9 @@ Vector Operations and Functions in Python
 \end_layout
 
 \begin_layout Author
-SANKALP SAOJI 
-\end_layout
 
-\begin_layout Author
-EE16B063
+\bar under
+SANKALP SAOJI (EE16B063)
 \end_layout
 
 \begin_layout Abstract
@@ -104,15 +110,6 @@ In this assignment we learnt about vector operations and functions in python.
 \begin_layout Abstract
 We also learnt how to implement self-made integration function using trapezoidal
  integration.
-\end_layout
-
-\begin_layout Abstract
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -370,6 +367,7 @@ The show() command displays the graph.
 \begin_layout Standard
 \begin_inset Graphics
 	filename array_plot.png
+	scale 75
 
 \end_inset
 
@@ -414,7 +412,12 @@ for i in range(0, len(x)):
 
 \begin_layout LyX-Code
 
-	print(x[i], integration_ans) 	plt.plot(x[i], integration_ans, 'ro')
+	print(x[i], integration_ans) 	
+\end_layout
+
+\begin_layout LyX-Code
+
+plt.plot(x[i], integration_ans, 'ro')
 \end_layout
 
 \end_inset
@@ -492,7 +495,12 @@ int_{0}^{x} dx/{1+x^{2}}$')
 
 plt.title('Plot of $
 \backslash
-int_{0}^{x} dx/{1+x^{2}}$ in red and arctan in black') 
+int_{0}^{x} dx/{1+x^{2}}$ in 
+\end_layout
+
+\begin_layout LyX-Code
+
+red and arctan in black') 
 \end_layout
 
 \begin_layout LyX-Code
@@ -541,6 +549,7 @@ The legend() command adds a legend to the graph indicating the respective
 \begin_layout Standard
 \begin_inset Graphics
 	filename tan_inverse.png
+	scale 75
 
 \end_inset
 
@@ -1197,11 +1206,6 @@ err = abs(integration_ans-j)
 
 \end_layout
 
-\begin_layout LyX-Code
-
-\end_layout
-
-\begin_deeper
 \begin_layout Standard
 abs() function is used to get absolute value of the difference between integrati
 on_ans and j.
@@ -1217,7 +1221,6 @@ the arctan() function itself.
 The graph is plotted in a semilogy plot.
 \end_layout
 
-\end_deeper
 \begin_layout LyX-Code
 
 \end_layout
@@ -1277,6 +1280,7 @@ plt.show()
 \begin_layout LyX-Code
 \begin_inset Graphics
 	filename tan_inverse_error.png
+	scale 75
 
 \end_inset
 
@@ -1337,6 +1341,10 @@ status open
 \begin_layout LyX-Code
 
 #Implementing Trapezoidal Integration 
+\end_layout
+
+\begin_layout LyX-Code
+
 \end_layout
 
 \begin_layout LyX-Code
@@ -1406,7 +1414,7 @@ def integ(p):
 
 \begin_layout LyX-Code
 
-	return I 
+return I 
 \end_layout
 
 \end_inset
@@ -1490,6 +1498,7 @@ Above algorithm uses the cumsum() function to shorten the algorithm.
 \begin_layout Standard
 \begin_inset Graphics
 	filename cumsum_plot.png
+	scale 75
 
 \end_inset
 
@@ -1498,6 +1507,11 @@ Above algorithm uses the cumsum() function to shorten the algorithm.
 
 \begin_layout Subsubsection
 Error calculation of the trapezoidal method
+\end_layout
+
+\begin_layout Standard
+In the above code, I have calculated the estimated error and the exac error.
+ Following graph shos the obtained plot.
 \end_layout
 
 \begin_layout LyX-Code
@@ -1655,21 +1669,17 @@ estimate.append(0)
 \end_layout
 
 \begin_layout Standard
-In the above code, I have calculated the estimated error and the exac error.
- Following graph shos the obtained plot.
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset Graphics
 	filename basic_integration_error.png
+	scale 75
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This is the graph I obtained.
 \end_layout
 
 \end_body

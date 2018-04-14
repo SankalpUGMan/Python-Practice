@@ -1,0 +1,2975 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+LAB 9 REPORT
+\end_layout
+
+\begin_layout Title
+The Digital Fourier Transform
+\end_layout
+
+\begin_layout Author
+Name: 
+\bar under
+Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: 
+\bar under
+EE16B063
+\end_layout
+
+\begin_layout Author
+Course: 
+\bar under
+EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 10/04/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we looked upon the way python helps us to obtain the fourier
+ transform of a particular signal using the in-built 'fft' function.
+ So, we are exploring the 'fft' function in this assignment and also how
+ to recover the analog Fourier Tranform for some known functions by the
+ proper sampling of the function.
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+A time function of the type f(t)u
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t) that grows slower than e
+\begin_inset Formula $^{\alpha t}$
+\end_inset
+
+ for some α has a Laplace transform, F(s).
+ The Laplace transform has an inverse transform which involves integrating
+ vertically in the complex plane along a path that is to the right of all
+ poles.
+\end_layout
+
+\begin_layout Standard
+A finite energy function of the type f(t) has a Fourier Transform (and its
+ inverse) of the following type,
+\end_layout
+
+\begin_layout Standard
+F(j
+\begin_inset Formula $\varpi)$
+\end_inset
+
+ = 
+\begin_inset Formula $\intop$
+\end_inset
+
+
+\begin_inset Formula $_{-∞}^{∞}$
+\end_inset
+
+f(t)e
+\begin_inset Formula $^{-j\varpi t}$
+\end_inset
+
+dt
+\end_layout
+
+\begin_layout Standard
+f(t) = 
+\begin_inset Formula $\frac{1}{2\pi}$
+\end_inset
+
+
+\begin_inset Formula $\intop_{-∞}^{∞}$
+\end_inset
+
+F(j
+\begin_inset Formula $\varpi)e^{j\varpi t}$
+\end_inset
+
+d
+\begin_inset Formula $\varpi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If f (t) is periodic with period 2
+\begin_inset Formula $\pi$
+\end_inset
+
+, the Fourier transform collapses to the Fourier series,
+\end_layout
+
+\begin_layout Standard
+f(t) = 
+\begin_inset Formula $\sum_{n=-∞}^{∞}$
+\end_inset
+
+c
+\begin_inset Formula $_{n}$
+\end_inset
+
+e
+\begin_inset Formula $^{jnt}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where,
+\end_layout
+
+\begin_layout Standard
+c
+\begin_inset Formula $_{n}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{1}{2\pi}$
+\end_inset
+
+
+\begin_inset Formula $\int_{t_{0}}^{t_{0}+2\pi}$
+\end_inset
+
+f(t)e
+\begin_inset Formula $^{-jnt}$
+\end_inset
+
+dt
+\end_layout
+
+\begin_layout Standard
+for any t
+\begin_inset Formula $_{0}$
+\end_inset
+
+.
+ For conveniece,
+\end_layout
+
+\begin_layout Standard
+t
+\begin_inset Formula $_{0}$
+\end_inset
+
+ = 0.
+\end_layout
+
+\begin_layout Standard
+In case of discrete time, we have the following equations,
+\end_layout
+
+\begin_layout Standard
+F(z) = 
+\begin_inset Formula $\sum_{n=-∞}^{∞}$
+\end_inset
+
+f[n]z
+\begin_inset Formula $^{-n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For z = e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+, we have,
+\end_layout
+
+\begin_layout Standard
+F(e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+) = 
+\begin_inset Formula $\sum_{n=-∞}^{∞}$
+\end_inset
+
+f[n]e
+\begin_inset Formula $^{-jn\theta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, clearly F(z) is like the periodic time function that gives rise to the
+ fourier series whose coefficients are the samples f [n].
+\end_layout
+
+\begin_layout Standard
+F(e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+ ) is called the Digital Spectrum of the samples f [n].
+ It is also called the DTFT of f [n].
+\end_layout
+
+\begin_layout Standard
+F(e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+ ) is continuous and periodic.
+ 
+\end_layout
+
+\begin_layout Standard
+f [n] is discrete and aperiodic.
+ 
+\end_layout
+
+\begin_layout Standard
+Suppose now f [n] is itself periodic with a period N, 
+\end_layout
+
+\begin_layout Standard
+i.e., f[n + N] = f[n] ∀n 
+\end_layout
+
+\begin_layout Standard
+Then, it should have samples for its DTFT.
+ This is true, and leads to the Discrete Fourier Transform or the DFT.
+\end_layout
+
+\begin_layout Standard
+Suppose f [n] is a periodic sequence of samples, with a period N.
+ 
+\end_layout
+
+\begin_layout Standard
+Then the DTFT of the sequence is also a periodic sequence F[k] with the
+ same period N.
+ So,
+\end_layout
+
+\begin_layout Standard
+F[k] = cf[n]e
+\begin_inset Formula $^{-\frac{2\pi nkj}{N}}$
+\end_inset
+
+ = 
+\begin_inset Formula $\sum_{n=0}^{N-1}$
+\end_inset
+
+f[n]W
+\begin_inset Formula $^{nk}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+f[n] = 
+\begin_inset Formula $\frac{1}{N}$
+\end_inset
+
+
+\begin_inset Formula $\sum_{k=0}^{N-1}$
+\end_inset
+
+F[k]W
+\begin_inset Formula $^{-nk}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(W = e
+\begin_inset Formula $^{-\frac{2\pi j}{N}}$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Standard
+The values F[k] are what remains of the Digital Spectrum F(e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+ ).
+ 
+\end_layout
+
+\begin_layout Standard
+We can consider them as the values of F(e
+\begin_inset Formula $^{j\theta}$
+\end_inset
+
+) for θ = 
+\begin_inset Formula $\frac{2πk}{N}$
+\end_inset
+
+, since the first N terms in the expression for F(e
+\begin_inset Formula $^{\frac{2\pi kj}{N}}$
+\end_inset
+
+) yield,
+\end_layout
+
+\begin_layout Standard
+F(e
+\begin_inset Formula $^{\frac{j2\pi k}{N}}$
+\end_inset
+
+) = 
+\begin_inset Formula $\sum_{n=0}^{N-1}$
+\end_inset
+
+f[n]e(
+\begin_inset Formula $^{\frac{-2\pi knj}{N}}$
+\end_inset
+
+) + ....
+\end_layout
+
+\begin_layout Standard
+which is same as the DFT expression.
+ The remaining terms are repetitions of the above sum and help build up
+ the delta function that is needed to take us from a continuous transform
+ to discrete impulses.
+ The DFT is a sampled version of the DTFT, which is the digital version
+ of the analog Fourier Transform.
+\end_layout
+
+\begin_layout Section
+QUESTIONS
+\end_layout
+
+\begin_layout Subsection
+Working out the examples from the given pdf,
+\end_layout
+
+\begin_layout Subsubsection
+Calculating dft in python for a random function :
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Importing modules and libraries
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from pylab import *
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above code, I have imported all the modules and libraries I will
+ require in this assignment.
+\end_layout
+
+\begin_layout Standard
+There are two commands in Python, one to compute the forward fourier transform
+ and the other to compute the inverse transform.
+ They are,
+\end_layout
+
+\begin_layout Standard
+numpy.fft.fft() 
+\end_layout
+
+\begin_layout Standard
+(for forward fourier transform)
+\end_layout
+
+\begin_layout Standard
+numpy.fft.ifft()
+\end_layout
+
+\begin_layout Standard
+(for inverse fourier transform)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+Below is one example where we have calculated the fourier and inverse fourier
+ transform,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Calculating fourier and inverse fourier transform
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = rand(100)
+\end_layout
+
+\begin_layout Plain Layout
+
+X = fft(x)                                                  
+\end_layout
+
+\begin_layout Plain Layout
+
+#forward fourier transform of x
+\end_layout
+
+\begin_layout Plain Layout
+
+y = ifft(X)                                                 
+\end_layout
+
+\begin_layout Plain Layout
+
+#inverse fourier transform of X
+\end_layout
+
+\begin_layout Plain Layout
+
+c_[x,y]                                                     
+\end_layout
+
+\begin_layout Plain Layout
+
+#creating a matrix with x and y as columns
+\end_layout
+
+\begin_layout Plain Layout
+
+print abs(x-y).max()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The starting vector, x, and the vector got by running fft and ifft on x
+ are essentially the same vector.
+ The command c_[x,y] tells Python to make a 100 × 2 matrix by using x and
+ y as the columns.
+ This is a quick and dirty way to print both out side by side.
+ And what this shows is that x is pure real while y is very slightly complex.
+ This is due to the finite accuracy of the CPU so that the ifft could not
+ exactly undo what fft did.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inferences:
+\end_layout
+
+\begin_layout Standard
+1) After running the above code, I got the max diference between the values
+ of x as 
+\bar under
+1.03375543203e-15.
+\end_layout
+
+\begin_layout Subsubsection
+Calculating dft in python for sine function :
+\end_layout
+
+\begin_layout Standard
+In this question, we took a sinusoidal function,
+\end_layout
+
+\begin_layout Standard
+y = sin(x) = 
+\begin_inset Formula $\frac{e^{jx}-e^{-jx}}{2j}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So,
+\end_layout
+
+\begin_layout Standard
+Y(
+\begin_inset Formula $\varpi$
+\end_inset
+
+) =
+\begin_inset Formula $\frac{1}{2j}$
+\end_inset
+
+[
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi$
+\end_inset
+
+ - 1) - 
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi$
+\end_inset
+
+ + 1)]
+\end_layout
+
+\begin_layout Standard
+Below is the way, I have obtained the fourier transform of the sine function,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Calculating fourier transform for sine function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = linspace(0,2*pi,128)
+\end_layout
+
+\begin_layout Plain Layout
+
+y = sin(5*x)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fft(y)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the code for plotting,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|Y|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of $
+\backslash
+sin(5t)$")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(unwrap(angle(Y)),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $Y$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$k$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("sine_fourier.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the output graph I obtained,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename sine_fourier.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From the above graph, we can infer the following,
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inferences:
+\end_layout
+
+\begin_layout Standard
+1) We see that we get spikes as expected, but not where we expected.
+ The spikes have a height of 64, not 0.5.
+ We should divide by N to use it as a spectrum.
+ The phase at the spikes have a phase difference of 
+\begin_inset Formula $\pi$
+\end_inset
+
+, which means they are opposite signs, which is correct.
+ The actual phase at the spikes is near but not exactly correct.
+\end_layout
+
+\begin_layout Standard
+2) We haven’t yet got the frequency axis in place.
+\end_layout
+
+\begin_layout Standard
+3) There is energy at nearby frequencies as well.
+\end_layout
+
+\begin_layout Subsubsection
+Determining the errors in the implementation and rectifying the fourier
+ graphs for the sine function :
+\end_layout
+
+\begin_layout Standard
+For the above fourier transform,
+\end_layout
+
+\begin_layout Standard
+The problem is that the DFT treats the position axis as another frequency
+ axis.
+ So it expects the vector to be on the unit circle starting at 1.
+ Our position vector started at 0 and went to 2
+\begin_inset Formula $\pi$
+\end_inset
+
+, which is correct.
+ The fft gave an answer in the same value.
+ So we need to shift the 
+\begin_inset Formula $\pi$
+\end_inset
+
+ to 2
+\begin_inset Formula $\pi$
+\end_inset
+
+ portion to the left as it represents negative frequency.
+ This can be done with a command called 'fftshift'.
+ The second thing that is wrong is that both 0 and 2π are the same point.
+ So our 128 points need to stop at the point just before 2
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+ The best way to do this is to create a vector of 129 values and drop the
+ last one like,
+\end_layout
+
+\begin_layout Standard
+x = linspace(0,2*pi,129);
+\end_layout
+
+\begin_layout Standard
+x = x[:-1] 
+\end_layout
+
+\begin_layout Standard
+The ω axis has a highest frequency corresponding to N.
+ This is because we have N points between 0 and 2
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+ So
+\end_layout
+
+\begin_layout Standard
+∆x = 
+\begin_inset Formula $\frac{2\pi}{N}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+and the sampling frequency becomes N/2π.
+ Thus, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\varpi_{max}$
+\end_inset
+
+ = N
+\end_layout
+
+\begin_layout Standard
+The actual frequencies go upto half that frequency only.
+ Below is the update code for the above stuff,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Correcting the errors and rectifying for the sine function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = linspace(0,2*pi,129)
+\end_layout
+
+\begin_layout Plain Layout
+
+x = x[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = sin(5*x)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/128.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,63,128)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the code for plotting,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+xlim([-10,10])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|Y|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of $
+\backslash
+sin(5t)$")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = where(abs(Y)>1e-3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w[ii],angle(Y[ii]),'go',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+xlim([-10,10])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $Y$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$k$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("sine_fourier2.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Shown below are the obatined plots for the updated code,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename sine_fourier2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, things have improved.
+ From the above graph, we see that,
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inferences:
+\end_layout
+
+\begin_layout Standard
+1) The peaks are exactly at 0.5, and the remaining values are zero to machine
+ precision.
+ Their position along the x axis is correct as our function is sin (5x)
+ and we expect a 
+\end_layout
+
+\begin_layout Standard
+spike at ω = ±5 .
+\end_layout
+
+\begin_layout Standard
+2)The phase at the peak is meaningful and it is 
+\begin_inset Formula $\frac{\pi}{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{-\pi}{2}$
+\end_inset
+
+ for the two peaks.
+ This has been shown with green coour on the phase plot.
+ The peak for ω = 5 should be 0.5/ j, or 
+\end_layout
+
+\begin_layout Standard
+0.5e
+\begin_inset Formula $^{-\frac{j\pi}{2}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Obtaining the fourier plot for an amplitude modulated function :
+\end_layout
+
+\begin_layout Standard
+We now look at AM modulation.
+ The function we want to analyse is,
+\end_layout
+
+\begin_layout Standard
+f(t) = (1 + 0.1 cos(t))cos (10t) 
+\end_layout
+
+\begin_layout Standard
+Again, we use 128 points and generate the spectrum using the above code,
+ only changing the definition of f (t).
+ Below code shows how we do it,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining fourier plot for an amplitude
+\end_layout
+
+\begin_layout Plain Layout
+
+modulated signal
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(0,2*pi,129)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = (1+0.1*cos(t))*cos(10*t)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/128.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,63,128)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the code for plotting,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|Y|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of $
+\backslash
+left(1+0.1
+\backslash
+cos
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+left(t
+\backslash
+right)
+\backslash
+right)
+\backslash
+cos
+\backslash
+left(10t
+\backslash
+right)$")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $Y$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("amp_modulation.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename amp_modulation.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above figure is my obtained plot.
+ It is not what we expected.
+ Following are the inferences we can draw,
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inferences: 
+\end_layout
+
+\begin_layout Standard
+1) There are three non-zero amplitudes on both sides, as expected.
+ But not three spikes, just a broader single spike.
+\end_layout
+
+\begin_layout Standard
+2) All have zero phase, since we have cosines.
+\end_layout
+
+\begin_layout Subsubsection
+Determining the errors in the implementation and rectifying the fourier
+ graphs for the amplitude modulated function :
+\end_layout
+
+\begin_layout Standard
+In above question, we did not allow for enough frequencies.
+ Let us use 512 samples instead.
+ 
+\end_layout
+
+\begin_layout Standard
+But, if we put more points between 0 and 2
+\begin_inset Formula $\pi$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+t = linspace(0,2*pi,513);
+\end_layout
+
+\begin_layout Standard
+t = t[:-1] 
+\end_layout
+
+\begin_layout Standard
+it will give the same spacing but a high sampling frequency.
+ 
+\end_layout
+
+\begin_layout Standard
+What we need to do is to stretch the t axis as,
+\end_layout
+
+\begin_layout Standard
+t = linspace(-4*pi,4*pi,513);
+\end_layout
+
+\begin_layout Standard
+t = t[:-1] 
+\end_layout
+
+\begin_layout Standard
+This will give us tighter spacing between frequency samples, but the same
+ time spacing - i.e., the same sampling frequency.
+ Below is the code for it,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Correcting the errors and rectifying for the 
+\end_layout
+
+\begin_layout Plain Layout
+
+amplitude modulated function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(-4*pi,4*pi,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = (1+0.1*cos(t))*cos(10*t)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/512.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,64,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+w = w[:-1]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the way I plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|Y|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of $
+\backslash
+left(1+0.1
+\backslash
+cos
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+left(t
+\backslash
+right)
+\backslash
+right)
+\backslash
+cos
+\backslash
+left(10t
+\backslash
+right)$")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $Y$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("amp_modulation2.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After updating, I got the following plot,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename amp_modulation2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From the above graph, we can draw the following inferences,
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inferences:
+\end_layout
+
+\begin_layout Standard
+1) We have three clear spikes.
+ The location of the spikes are 9, 10 and 11 radians per sec on the right
+ side of zero.
+ The height of the side bands come from,
+\end_layout
+
+\begin_layout Standard
+0.1cos(10t)cos(t) = 0.05(cos(11t) + cos(9t)) 
+\end_layout
+
+\begin_layout Standard
+= 0.025 (e
+\begin_inset Formula $^{11tj}$
+\end_inset
+
+ + e
+\begin_inset Formula $^{9tj}$
+\end_inset
+
+ + e
+\begin_inset Formula $^{-11tj}$
+\end_inset
+
+ + e
+\begin_inset Formula $^{-9tj}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+2) The phases at those spikes are zero to machine precision.
+ 
+\end_layout
+
+\begin_layout Standard
+3) All the amplitudes are real and positive as seen in the phase plot.
+\end_layout
+
+\begin_layout Subsection
+Obtaining the spectrum of some cubic sinusoidal functions,
+\end_layout
+
+\begin_layout Subsubsection
+Obtaining the spectrum of sin
+\begin_inset Formula $^{3}$
+\end_inset
+
+t :
+\end_layout
+
+\begin_layout Standard
+In this question we have sin
+\begin_inset Formula $^{3}$
+\end_inset
+
+t as our function whose fourier transform I calculated with the following
+ code,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining fourier transform of sin^3(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(-4*pi,4*pi,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = sin(t)*sin(t)*sin(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/512.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,64,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+w = w[:-1]
+\end_layout
+
+\end_inset
+
+Below is the way I have plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of sin^3(t)")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = where(abs(Y)>1e-3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w[ii],angle(Y[ii]),'go',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $H$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("sine_cube_fourier.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sine_cube_fourier.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the plot for fourier transform of sin
+\begin_inset Formula $^{3}$
+\end_inset
+
+(t).
+\end_layout
+
+\begin_layout Standard
+As we know,
+\end_layout
+
+\begin_layout Standard
+h(t) = sin
+\begin_inset Formula $^{3}$
+\end_inset
+
+(t) = 
+\begin_inset Formula $\frac{3sin(t)-sin(3t)}{4}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+= 
+\begin_inset Formula $\frac{3}{8j}$
+\end_inset
+
+(e
+\begin_inset Formula $^{jt}$
+\end_inset
+
+-e
+\begin_inset Formula $^{-jt}$
+\end_inset
+
+) - 
+\begin_inset Formula $\frac{1}{8j}$
+\end_inset
+
+(e
+\begin_inset Formula $^{3jt}$
+\end_inset
+
+-e
+\begin_inset Formula $^{-3jt}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Taking fourier transform of it, we get,
+\end_layout
+
+\begin_layout Standard
+H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+) =  
+\begin_inset Formula $\frac{3}{8j}$
+\end_inset
+
+[
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi-1$
+\end_inset
+
+) - 
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi+1)$
+\end_inset
+
+] - 
+\begin_inset Formula $\frac{1}{8j}$
+\end_inset
+
+[
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi-3$
+\end_inset
+
+) - 
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi+3)$
+\end_inset
+
+)]
+\end_layout
+
+\begin_layout Standard
+So in the graph, for |H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+)|, we got the peaks of the repsonse at 
+\begin_inset Formula $\varpi$
+\end_inset
+
+ = 1, -1, 3 and -3 as expected.
+ And their magnitudes are 0.325, 0.325, 0.125 and 0.125 which was also found
+ out from theory.
+\end_layout
+
+\begin_layout Standard
+As far as the phase plot is concerned, we have,
+\end_layout
+
+\begin_layout Standard
+1) A symmetric phase distribution corresponding to the symmetric function,
+\end_layout
+
+\begin_layout Standard
+2) We also see that the phase is equal and opposite at the points of the
+ peaks of the magnitude plot,
+\end_layout
+
+\begin_layout Standard
+3) The other random points are obtained due to the python's fourier function.
+\end_layout
+
+\begin_layout Standard
+So, we have got the plots as we had expected them to be.
+\end_layout
+
+\begin_layout Subsubsection
+Obtaining the spectrum of cos
+\begin_inset Formula $^{3}$
+\end_inset
+
+(t) :
+\end_layout
+
+\begin_layout Standard
+In this question we have cos
+\begin_inset Formula $^{3}$
+\end_inset
+
+t as our function whose fourier transform I calculated with the following
+ code,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining fourier transform of cos^3(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(-4*pi,4*pi,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = cos(t)*cos(t)*cos(t)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/512.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,64,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+w = w[:-1]
+\end_layout
+
+\end_inset
+
+Below is the way I have plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(5)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of cos^3(t)")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = where(abs(Y)>1e-3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w[ii],angle(Y[ii]),'go',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $H$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("cosine_cube_fourier.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename cosine_cube_fourier.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the plot for fourier transform of cos
+\begin_inset Formula $^{3}$
+\end_inset
+
+(t).
+\end_layout
+
+\begin_layout Standard
+As we know,
+\end_layout
+
+\begin_layout Standard
+h(t) = cos
+\begin_inset Formula $^{3}$
+\end_inset
+
+(t) = 
+\begin_inset Formula $\frac{3cos(t)+cos(3t)}{4}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+= 
+\begin_inset Formula $\frac{3}{8}$
+\end_inset
+
+(e
+\begin_inset Formula $^{jt}$
+\end_inset
+
++e
+\begin_inset Formula $^{-jt}$
+\end_inset
+
+) - 
+\begin_inset Formula $\frac{1}{8}$
+\end_inset
+
+(e
+\begin_inset Formula $^{3jt}$
+\end_inset
+
++e
+\begin_inset Formula $^{-3jt}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Taking fourier transform of it, we get,
+\end_layout
+
+\begin_layout Standard
+H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+) =  
+\begin_inset Formula $\frac{3}{8}$
+\end_inset
+
+[
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi-1$
+\end_inset
+
+) + 
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi+1)$
+\end_inset
+
+] - 
+\begin_inset Formula $\frac{1}{8}$
+\end_inset
+
+[
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi-3$
+\end_inset
+
+) + 
+\begin_inset Formula $\delta$
+\end_inset
+
+(
+\begin_inset Formula $\varpi+3)$
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Standard
+So in the graph, for |H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+)|, we got the peaks of the repsonse at 
+\begin_inset Formula $\varpi$
+\end_inset
+
+ = 1, -1, 3 and -3 as expected.
+ And their magnitudes are 0.325, 0.325, 0.125 and 0.125 which was also found
+ out from theory.
+\end_layout
+
+\begin_layout Standard
+As far as the phase plot is concerned, we have,
+\end_layout
+
+\begin_layout Standard
+1) A symmetric phase distribution corresponding to the symmetric function,
+\end_layout
+
+\begin_layout Standard
+2) Same phase at the peaks of the magnitude plot,
+\end_layout
+
+\begin_layout Standard
+3) The other random points are obtained due to the python's fourier function.
+\end_layout
+
+\begin_layout Standard
+So, we have got the plots as we had expected them to be.
+\end_layout
+
+\begin_layout Subsection
+Obtaining the spectrum of cos(20t + 5cos(t)),
+\end_layout
+
+\begin_layout Standard
+In this question, we have obtained the fourier transform of cos(20t + 5cos(t)),
+\end_layout
+
+\begin_layout Standard
+Below is the code for it,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Obtaining the spectrum of cos(20t + 5 cos(t))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(-4*pi,4*pi,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = cos(20*t + 5*cos(t))
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/512.0
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,64,513)
+\end_layout
+
+\begin_layout Plain Layout
+
+w = w[:-1]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below is the way I plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(6)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-35,35])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of cos(20t + 5 cos(t))")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = where(abs(Y)>1e-3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w[ii],angle(Y[ii]),'go',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-35,35])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $H$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("complex_sinusoid2.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename complex_sinusoid.png
+	scale 40
+
+\end_inset
+
+    
+\begin_inset Graphics
+	filename complex_sinusoid2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above plot shows the magnitude and phase response of cos(20t + 5 cos(t)).
+ We have expanded the x-axis in this case.
+ As seen from the figure, we have a huge density of peaks from -30 to -10
+ and from 10 to 30.
+\end_layout
+
+\begin_layout Standard
+The above magnitude plot is expected as the magnitude of the fourier transform
+ turns out to be like it.
+ The peculiar characteristics of thr graph are,
+\end_layout
+
+\begin_layout Standard
+1) The maximum density of the plot is at 
+\begin_inset Formula $\varpi$
+\end_inset
+
+= 20 and 
+\begin_inset Formula $\varpi$
+\end_inset
+
+ = -20.
+\end_layout
+
+\begin_layout Standard
+2) The maximum amplitude that we get is 0.2.
+\end_layout
+
+\begin_layout Standard
+In the above figure, I have marked the phase points where the magnitude
+ is greater than 10
+\begin_inset Formula $^{-3}$
+\end_inset
+
+ in green colour.
+ From the phase plot we see,
+\end_layout
+
+\begin_layout Standard
+1) The phase plot shows us that we have same phase at the peak points.
+ 
+\end_layout
+
+\begin_layout Subsection
+Obtaining the spectrum of e
+\begin_inset Formula $^{-\frac{t^{2}}{2}}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+We are obtaining the fourier transform of e
+\begin_inset Formula $^{-\frac{t^{2}}{2}}$
+\end_inset
+
+ in this question.
+ Following code shows the way we have got it,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#From python fft function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+N = 512
+\end_layout
+
+\begin_layout Plain Layout
+
+t = linspace(-(4*pi,4*pi,N+1)
+\end_layout
+
+\begin_layout Plain Layout
+
+t = t[:-1]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = exp(-(t*t)/2)
+\end_layout
+
+\begin_layout Plain Layout
+
+Y = fftshift(fft(y))/N
+\end_layout
+
+\begin_layout Plain Layout
+
+w = linspace(-64,64,N+1)
+\end_layout
+
+\begin_layout Plain Layout
+
+w = w[:-1]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below code shows the way we have plotted the spectrum for the Gaussian function
+ using the in-built python module,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(7)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of  e^(-t^2/2) for 
+\end_layout
+
+\begin_layout Plain Layout
+
+$
+\backslash
+omega$ = (-15,15) calculated from python module")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(Y),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+ii = where(abs(Y)>1e-3)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w[ii],angle(Y[ii]),'go',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $H$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("squared_exponential.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following graph show the fourier spectrum of e
+\begin_inset Formula $^{-\frac{t^{2}}{2}}$
+\end_inset
+
+ calculated through the in-built function,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename squared_exponential.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the graph of fourier spectrum of e
+\begin_inset Formula $^{-\frac{t^{2}}{2}}$
+\end_inset
+
+ calculated manually,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Manually
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def squared_exponential_fourier(m):
+\end_layout
+
+\begin_layout Plain Layout
+
+	return ((2*pi)**(0.5))*(e**(-2*pi*pi*m*m))/N
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+f = squared_exponential_fourier(w)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Below code shows the way we have plotted the spectrum for the Gaussian function
+ using the in-built python module,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(8)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,f,lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Spectrum of  e^(-t^2/2) 
+\end_layout
+
+\begin_layout Plain Layout
+
+for $
+\backslash
+omega$ = (-15,15) manually")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.subplot(2,1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,angle(f),'ro',lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"Phase of $H$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel(r"$
+\backslash
+omega$",size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("squared_exponential2.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following graph show the fourier spectrum of e
+\begin_inset Formula $^{-\frac{t^{2}}{2}}$
+\end_inset
+
+ calculated manually,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename squared_exponential2.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, I am comparing the magnitudes of the two Gaussian functions calculated
+ using the two different methods,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Combo plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(9)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,abs(Y),'r')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(w,f,'b')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlim([-15,15])
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel(r"$|H|$", size = 16)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title(r"Combined fourier spectrum of  e^(-t^2/2)
+\end_layout
+
+\begin_layout Plain Layout
+
+for $
+\backslash
+omega$ = (-15,15)")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig("squared_exponential_combo.png")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename squared_exponential_combo.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the obtained plot for the function.
+\end_layout
+
+\begin_layout Standard
+Below is the error plot I obtained for the above function,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename error_plot.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The maximum error I obtained was 
+\series bold
+1.354 x 10
+\begin_inset Formula $^{-7}$
+\end_inset
+
+
+\series default
+.
+\end_layout
+
+\end_body
+\end_document

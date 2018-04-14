@@ -1,0 +1,2065 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+LAB 8 REPORT
+\end_layout
+
+\begin_layout Title
+Analysis of Circuits using Laplace Transforms
+\end_layout
+
+\begin_layout Author
+Name: 
+\bar under
+Sankalp Saoji
+\end_layout
+
+\begin_layout Author
+Roll No: 
+\bar under
+EE16B063
+\end_layout
+
+\begin_layout Author
+Course: 
+\bar under
+EE2703 - Applied Programming Lab
+\end_layout
+
+\begin_layout Date
+Date: 5/04/2018
+\end_layout
+
+\begin_layout Abstract
+In this week, we looked upon two powerful capabilities of Python:
+\end_layout
+
+\begin_layout Abstract
+1) Symbolic Algebra
+\end_layout
+
+\begin_layout Abstract
+2) Analysing Cicuits using Laplace Transforms
+\end_layout
+
+\begin_layout Section
+INTRODUCTION
+\end_layout
+
+\begin_layout Standard
+We considered the following low pass filter circuit,
+\end_layout
+
+\begin_layout LyX-Code
+                                            
+\begin_inset Graphics
+	filename circuit.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, we get a Butterworth filter of cutoff frequency 
+\begin_inset Formula $\frac{1}{2\pi}$
+\end_inset
+
+ MHz.
+ The circuit equations are,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  V
+\begin_inset Formula $_{m}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{V_{0}}{G}$
+\end_inset
+
+,                                                            -(1)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  V
+\begin_inset Formula $_{p}$
+\end_inset
+
+ = V
+\begin_inset Formula $_{1}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1}{1+j\varpi R_{2}C_{2}}$
+\end_inset
+
+,                                                    -(2)
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  V
+\begin_inset Formula $_{0}$
+\end_inset
+
+ = G(V
+\begin_inset Formula $_{p}-V_{m}$
+\end_inset
+
+),                                                     -(3)
+\end_layout
+
+\begin_layout LyX-Code
+                                                         
+\begin_inset Formula $\frac{V_{i}-V_{1}}{R_{1}}$
+\end_inset
+
+ + 
+\begin_inset Formula $\frac{V_{p}-V_{1}}{R_{2}}$
+\end_inset
+
+ + j
+\begin_inset Formula $\varpi C_{1}$
+\end_inset
+
+(V
+\begin_inset Formula $_{0}-V_{1})$
+\end_inset
+
+ = 0                                             -(4)
+\end_layout
+
+\begin_layout Standard
+Solving for V
+\begin_inset Formula $_{0}$
+\end_inset
+
+ in equation 3, we get,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                 V
+\begin_inset Formula $_{0}$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{GV_{1}}{2}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1}{1+J\varpi R_{2}C_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Equation 4 becomes,
+\end_layout
+
+\begin_layout LyX-Code
+                                           
+\begin_inset Formula $\frac{V_{i}}{R_{1}}$
+\end_inset
+
+ + V
+\begin_inset Formula $_{1}$
+\end_inset
+
+(-
+\begin_inset Formula $\frac{1}{R_{1}}$
+\end_inset
+
+ + 
+\begin_inset Formula $\frac{1}{R_{2}}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1}{1+J\varpi R_{2}C_{2}}$
+\end_inset
+
+ -
+\begin_inset Formula $\frac{1}{R_{2}}$
+\end_inset
+
+ + j
+\begin_inset Formula $\varpi C_{1}$
+\end_inset
+
+
+\begin_inset Formula $\frac{G}{2}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1}{1+J\varpi R_{2}C_{2}}$
+\end_inset
+
+ * j
+\begin_inset Formula $\varpi C_{1}$
+\end_inset
+
+) = 0
+\end_layout
+
+\begin_layout Standard
+The term involving G will dominate, and so we obtain,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                 V
+\begin_inset Formula $_{1}\text{≈}$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{2V_{i}}{G}$
+\end_inset
+
+
+\begin_inset Formula $\frac{1+j\varpi R_{2}C_{2}}{j\varpi R_{1}C_{1}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Substituting back into the expression for V
+\begin_inset Formula $_{0}$
+\end_inset
+
+ we finally get,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                 V
+\begin_inset Formula $_{0}$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+≈
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $\frac{V_{i}}{j\varpi R_{1}C_{1}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Using sympy to solve the above circuit problem :
+\end_layout
+
+\begin_layout Standard
+The above circuit problem reduces to the following matrix after doing nodal
+ analysis.
+ It is as shown below,
+\end_layout
+
+\begin_layout LyX-Code
+                                                 
+\begin_inset Graphics
+	filename matrix.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above matrix is solved as shown in below code.
+ (This above analysis and the below code were all given in the document).
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# Solving of the above problem
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Importing modules
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sympy import *
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as p
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Defining function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def lowpass(R1,R2,C1,C2,G,Vi):
+\end_layout
+
+\begin_layout Plain Layout
+
+	s = symbols('s')
+\end_layout
+
+\begin_layout Plain Layout
+
+	A = Matrix([[0,0,1,-1/G],[-1/(1+s*R2*C2),1,0,0],[0,-G,G,1],[-1/R1-1/R2-s*C1,1/R
+2,0,s*C1]])
+\end_layout
+
+\begin_layout Plain Layout
+
+	b = Matrix([0,0,0,Vi/R1])
+\end_layout
+
+\begin_layout Plain Layout
+
+	V = A.inv()*b                                                          
+                       # This solution is in s space.
+\end_layout
+
+\begin_layout Plain Layout
+
+	return (A,b,V)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+A,b,V = lowpass(10000,10000,1e-9,1e-9,1.586,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+print'G=1000'
+\end_layout
+
+\begin_layout Plain Layout
+
+Vo = V[3]
+\end_layout
+
+\begin_layout Plain Layout
+
+print Vo
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+w = p.logspace(0,8,801)
+\end_layout
+
+\begin_layout Plain Layout
+
+ss = 1j*w
+\end_layout
+
+\begin_layout Plain Layout
+
+hf = lambdify(s,Vo,’numpy’)
+\end_layout
+
+\begin_layout Plain Layout
+
+v = hf(ss)
+\end_layout
+
+\begin_layout Plain Layout
+
+p.loglog(w,abs(v),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+p.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+p.show()Varying the frequency of the cosine and plotting
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                   
+\begin_inset Graphics
+	filename output_graph_doc.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the way we have been given the plot of the output voltage for the
+ low pass filter in the document.
+\end_layout
+
+\begin_layout Section
+QUESTIONS
+\end_layout
+
+\begin_layout Subsection
+Getting step response H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+) of above low pass filter circuit and plotting :
+\end_layout
+
+\begin_layout Standard
+From above circuit, using nodal analysis, we get the following matrix,
+\end_layout
+
+\begin_layout LyX-Code
+                                                   
+\begin_inset Formula $\left[\begin{array}{cccc}
+0 & 0 & 1 & \frac{-1}{G}\\
+\frac{-1}{1+sR_{2}C_{2}} & 1 & 0 & 0\\
+0 & -G1 & G1 & 1\\
+-sC_{1}-\frac{1}{R_{1}}-\frac{1}{R_{2}} & \frac{1}{R_{2}} & 0 & sC_{1}
+\end{array}\right]$
+\end_inset
+
+
+\begin_inset Formula $x\left[\begin{array}{c}
+V'\\
+V_{p}\\
+V_{n}\\
+V_{o}
+\end{array}\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{c}
+0\\
+0\\
+0\\
+V_{i}/R
+\end{array}\right]$
+\end_inset
+
+   
+\end_layout
+
+\begin_layout Standard
+Here,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  R
+\begin_inset Formula $_{1}$
+\end_inset
+
+ = R
+\begin_inset Formula $_{2}$
+\end_inset
+
+ = 10k
+\begin_inset Formula $\Omega$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  C
+\begin_inset Formula $_{1}$
+\end_inset
+
+ = C
+\begin_inset Formula $_{2}$
+\end_inset
+
+ = 10pF,
+\end_layout
+
+\begin_layout LyX-Code
+                                                        G1(open loop gain
+ of opamp) = 1000,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                     G =
+ 1.586.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Importing modules and libraries
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as py
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy
+\end_layout
+
+\begin_layout Plain Layout
+
+import math
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import scipy.signal as sp
+\end_layout
+
+\begin_layout Plain Layout
+
+from sympy import *
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above code, I have imported all the modules and libraries I will
+ require in this assignment.
+\end_layout
+
+\begin_layout Standard
+So, below is the code for the plotting of step response of the low pass
+ filter.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Creating a function and solving the matrices for the low pass filter
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+s = symbols('s')
+\end_layout
+
+\begin_layout Plain Layout
+
+def lowpass(R1,R2,C1,C2,G1,G,Vi):
+\end_layout
+
+\begin_layout Plain Layout
+
+    A = Matrix([[0,0,1,-1/G],[(-1)/(1+s*R2*C2),1,0,0],[0,-G1,G1,1],[((-1)/(R1))-
+(1/R2)-s*C1,1/R2,0,s*C1]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    b = Matrix([0,0,0,Vi/R1])
+\end_layout
+
+\begin_layout Plain Layout
+
+    V = A.inv()*b
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (A,b,V)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining output voltage, H(jw) graph for the low pass filter and plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+A,b,V = lowpass(10000,10000,1e-9,1e-9,1000,1.586,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+Vo = V[3]
+\end_layout
+
+\begin_layout Plain Layout
+
+w = py.logspace(0,8,801)
+\end_layout
+
+\begin_layout Plain Layout
+
+ss = 1j*w
+\end_layout
+
+\begin_layout Plain Layout
+
+hf = lambdify(s,Vo,'numpy')
+\end_layout
+
+\begin_layout Plain Layout
+
+v = hf(ss)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.loglog(w,abs(v),lw = 2)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.title('Bode plot of the step response of the output voltage 
+\backslash
+n for the low pass filter using matrices')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.xlabel('frequency (omega)')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.ylabel('H')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                             
+\begin_inset Graphics
+	filename low_pass_plot.png
+
+\end_inset
+
+                                   
+\end_layout
+
+\begin_layout Standard
+Above is the plot I obtained for H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+) for the low pass filter.
+ We easily see the pole at around 0.5 x 10
+\begin_inset Formula $^{5}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Determining output voltage when a given input is applied and plotting the
+ output voltage waveform :
+\end_layout
+
+\begin_layout Subsubsection
+Analysis for the low pass filter,
+\end_layout
+
+\begin_layout Standard
+For the above low pass filter circuit, now the input is,
+\end_layout
+
+\begin_layout LyX-Code
+                                               v
+\begin_inset Formula $_{i}$
+\end_inset
+
+(t) = (sin(2000
+\begin_inset Formula $\pi t)$
+\end_inset
+
+ + cos(2 x 10
+\begin_inset Formula $^{6}$
+\end_inset
+
+
+\begin_inset Formula $\pi$
+\end_inset
+
+t))u
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t) volts
+\end_layout
+
+\begin_layout LyX-Code
+                                                           f(sine wave)
+ = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 1000
+\end_layout
+
+\begin_layout LyX-Code
+                                                         f(cosine wave)
+ = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 1000000
+\end_layout
+
+\begin_layout Standard
+So, after nodal analysis, I got,
+\end_layout
+
+\begin_layout LyX-Code
+                                              Transfer Function, H(s) =
+ 
+\begin_inset Formula $\frac{1}{631.51x10^{-10}s^{2}+1893.55x10^{-5}s+631.51}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining vo(t) from the transfer function of a high pass filter when a
+ given function is the input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new_num2 = numpy.poly1d([10**-9, 0, 0])
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new_denom2 = numpy.poly1d([0.63*(10**-9), 0.89*(10**-4), 6.3])
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new2 = sp.lti(H_new_num2, H_new_denom2)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo2 = numpy.linspace(0,5e-5,1e4)			
+\end_layout
+
+\begin_layout Plain Layout
+
+vi = numpy.sin(2000*(math.pi)*t_vo2) + numpy.cos(2*(1e6)*(math.pi)*t_vo2)					
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer2, vo2, vec_transfer2 = sp.lsim(H_new2, vi, t_vo2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting vo(t) for the high pass filter
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(2)	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_vo2, vo2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of output voltage of the circuit calculated from the transfer
+ function 
+\backslash
+n for a given input to a high pass filter')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above code, I have obtained the output voltage v
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t) using 'sp.lsim' from the signal toolbox.
+ Following is the plot I have obtained for the output voltage of the low
+ pass filter,
+\end_layout
+
+\begin_layout LyX-Code
+       
+\begin_inset Graphics
+	filename low_pass_output_for_input.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename low_pass_output_for_input2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+                                      
+\begin_inset Graphics
+	filename low_pass_output_for_input3.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above graph, the time period is very quite fine
+\end_layout
+
+\begin_layout LyX-Code
+                                                             T = 10
+\begin_inset Formula $^{-3}$
+\end_inset
+
+ seconds
+\end_layout
+
+\begin_layout LyX-Code
+                                                             f = 
+\begin_inset Formula $\frac{1}{T}$
+\end_inset
+
+ = 1 kHz
+\end_layout
+
+\begin_layout Standard
+The graph looks like a sine wave!
+\end_layout
+
+\begin_layout Standard
+Even when our input had two types of sinusoids, the sine sinusoid succeeded
+ to pass through the filter as we have got the output frequency as 1 kHz
+ which belongs to the sine sinusoid.
+ So, as this frequency has been able to pass, we are sure that the circuit
+ is a low pass filter.
+\end_layout
+
+\begin_layout Subsubsection
+Analysis for the high pass filter,
+\end_layout
+
+\begin_layout Standard
+We have a high pass filter circuit now,
+\end_layout
+
+\begin_layout LyX-Code
+                                    
+\begin_inset Graphics
+	filename new_circuit.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                 R
+\begin_inset Formula $_{1}$
+\end_inset
+
+ = R
+\begin_inset Formula $_{3}$
+\end_inset
+
+ = 10k
+\begin_inset Formula $\varOmega$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                  C
+\begin_inset Formula $_{1}$
+\end_inset
+
+ = C
+\begin_inset Formula $_{2}$
+\end_inset
+
+ = 1nF,
+\end_layout
+
+\begin_layout LyX-Code
+                                                         G1(open loop gain
+ of opamp) = 1000,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                    G =
+ 1.586.
+\end_layout
+
+\begin_layout Standard
+Now, the input v
+\begin_inset Formula $_{i}$
+\end_inset
+
+ to the circuit is,
+\end_layout
+
+\begin_layout LyX-Code
+                                               v
+\begin_inset Formula $_{i}$
+\end_inset
+
+(t) = (sin(2000
+\begin_inset Formula $\pi t)$
+\end_inset
+
+ + cos(2 x 10
+\begin_inset Formula $^{6}$
+\end_inset
+
+
+\begin_inset Formula $\pi$
+\end_inset
+
+t))u
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t) volts
+\end_layout
+
+\begin_layout LyX-Code
+                                                             f(sine wave)
+ = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 1000
+\end_layout
+
+\begin_layout LyX-Code
+                                                          f(cosine wave)
+ = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 1000000
+\end_layout
+
+\begin_layout Standard
+So, after nodal analysis, I got,
+\end_layout
+
+\begin_layout LyX-Code
+                                                  Transfer Function, H(s)
+ = 
+\begin_inset Formula $\frac{10^{-9}s^{2}}{0.63x10^{-9}s^{2}+0.89x10^{-4}s+6.3}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining vo(t) from the transfer function of a high pass filter when a
+ given function is the input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new_num2 = numpy.poly1d([10**-9, 0, 0])
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new_denom2 = numpy.poly1d([0.63*(10**-9), 0.89*(10**-4), 6.3])
+\end_layout
+
+\begin_layout Plain Layout
+
+H_new2 = sp.lti(H_new_num2, H_new_denom2)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo2 = numpy.linspace(0,5e-5,1e4)			
+\end_layout
+
+\begin_layout Plain Layout
+
+vi = numpy.sin(2000*(math.pi)*t_vo2) + numpy.cos(2*(1e6)*(math.pi)*t_vo2)					
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer2, vo2, vec_transfer2 = sp.lsim(H_new2, vi, t_vo2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Plotting vo(t) for the high pass filter
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(2)	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_vo2, vo2)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of output voltage of the circuit calculated from the transfer
+ function 
+\backslash
+n for a given input to a high pass filter')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above code, I have obtained the output voltage v
+\begin_inset Formula $_{0}$
+\end_inset
+
+(t) using 'sp.lsim' from the signal toolbox.
+ Following is the plot I have obtained for the output voltage of the high
+ pass filter,
+\end_layout
+
+\begin_layout LyX-Code
+               
+\begin_inset Graphics
+	filename high_pass_output_for_input.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename high_pass_output_for_input2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+                                         
+\begin_inset Graphics
+	filename high_pass_output_for_input3.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above graph, the time period is very low,
+\end_layout
+
+\begin_layout LyX-Code
+                                                             T = 10
+\begin_inset Formula $^{-6}$
+\end_inset
+
+ seconds
+\end_layout
+
+\begin_layout LyX-Code
+                                                             f = 
+\begin_inset Formula $\frac{1}{T}$
+\end_inset
+
+ = 1 MHz
+\end_layout
+
+\begin_layout Standard
+The graph looks like a cosine wave!
+\end_layout
+
+\begin_layout Standard
+Even when our input had two types of sinusoids, the cosine sinusoid succeeded
+ to pass through the filter as we have got the output frequency as 1 MHz
+ which belongs to the cosine sinusoid.
+ So, as this frequency has been able to pass, we are sure that the circuit
+ is a high pass filter.
+\end_layout
+
+\begin_layout Subsection
+Creating a function and solving the matrix for the high pass filter:
+\end_layout
+
+\begin_layout Standard
+In this problem, I analysed the circuit using sympy and created a function
+ similar to the one defined above.
+ For the same choice of components and gain, this circuit is a highpass
+ filter.
+\end_layout
+
+\begin_layout Standard
+I got the matrix for the filter after doing nodal analysis as,
+\end_layout
+
+\begin_layout LyX-Code
+                                             
+\begin_inset Formula $\left[\begin{array}{cccc}
+0 & 1 & 0 & \frac{-1}{G}\\
+sC_{2} & 0 & sC_{2}+\frac{1}{R_{3}} & 0\\
+0 & G1 & -G1 & -1\\
+sC_{1}+sC_{2}+\frac{1}{R_{1}} & 0 & -sC_{2} & \frac{-1}{R_{1}}
+\end{array}\right]$
+\end_inset
+
+
+\begin_inset Formula $x\left[\begin{array}{c}
+V'\\
+V_{p}\\
+V_{n}\\
+V_{o}
+\end{array}\right]$
+\end_inset
+
+ = 
+\begin_inset Formula $\left[\begin{array}{c}
+0\\
+0\\
+0\\
+sC_{1}V_{i}
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the way I have obtained the function,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Creating function and solving the matrices for the high pass filter
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+s = symbols('s')
+\end_layout
+
+\begin_layout Plain Layout
+
+def highpass(R1,R3,C1,C2,G1,G,Vi):
+\end_layout
+
+\begin_layout Plain Layout
+
+	A = Matrix([[0,0,1,-1/G],[-s*C2,s*C2+1/R3,0,0],[0,G1,-G1,-1],[1/R1+s*C2+s*C1,-s
+*C2,0,-1/R1]])
+\end_layout
+
+\begin_layout Plain Layout
+
+	b = Matrix([0,0,0,s*C1*Vi])
+\end_layout
+
+\begin_layout Plain Layout
+
+	V = A.inv()*b
+\end_layout
+
+\begin_layout Plain Layout
+
+	return (A,b,V)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#Obtaining output voltage, H(jw) graph for the high pass filter and plotting
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+A,b,V = highpass(10000,10000,1e-9,1e-9,1000,1.586,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+Vo = V[3]
+\end_layout
+
+\begin_layout Plain Layout
+
+w = py.logspace(0,8,801)
+\end_layout
+
+\begin_layout Plain Layout
+
+ss = 1j*w
+\end_layout
+
+\begin_layout Plain Layout
+
+hf = lambdify(s,Vo,'numpy')
+\end_layout
+
+\begin_layout Plain Layout
+
+v = hf(ss)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(3)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.loglog(w,abs(v),lw=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.title('Bode plot of the step response of the output voltage 
+\backslash
+n for the high pass filter using matrices')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.xlabel('frequency (omega)')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.ylabel('H')
+\end_layout
+
+\begin_layout Plain Layout
+
+py.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+py.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                              
+\begin_inset Graphics
+	filename high_pass_plot.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the plot I obtained for H(j
+\begin_inset Formula $\varpi$
+\end_inset
+
+) for the high pass filter.
+ We easily see the pole at around 0.5 x 10
+\begin_inset Formula $^{5}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Obtaining the response of the circuit to a damped sinusoid :
+\end_layout
+
+\begin_layout Standard
+In this question, I have assumed a damped sinusoidal input as,
+\end_layout
+
+\begin_layout LyX-Code
+                                                            v
+\begin_inset Formula $_{i}$
+\end_inset
+
+ = e
+\begin_inset Formula $^{-50t}$
+\end_inset
+
+sin(200000
+\begin_inset Formula $\pi$
+\end_inset
+
+t)
+\end_layout
+
+\begin_layout LyX-Code
+                                                              f = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 100000
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining the repsonse of the circuit for a damped sinusoidal input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo3 = numpy.linspace(0,0.1,1e5)		
+\end_layout
+
+\begin_layout Plain Layout
+
+vi2 = numpy.exp(-50*t_vo3)*(numpy.sin(200000*(math.pi)*t_vo3))
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer3, vo3, vec_transfer3 = sp.lsim(H_new2, vi2, t_vo3)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the way I plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting output of the damped input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(4)	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_vo3, vo3, 'b')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of output voltage of the circuit for a damped sinusoidal
+ input, vo(t) 
+\backslash
+n alpha = 50, frequency = 100000')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After giving this as input, we get the response of the circuit as, 
+\end_layout
+
+\begin_layout LyX-Code
+            
+\begin_inset Graphics
+	filename damped_output.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename damped_output2.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+            
+\begin_inset Graphics
+	filename damped_output3.png
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename damped_output4.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In above graphs, I have shown the various outputs graphs and their zoomed
+ versions.
+ As we see for a high frequency and huge damping, as the input amplitude
+ decreases rapidly, the output amplitude also decreases but the frequency
+ is still the same as, 
+\begin_inset Formula $\varpi_{0}$
+\end_inset
+
+ = 20000
+\begin_inset Formula $\pi$
+\end_inset
+
+ rad/sec.
+\end_layout
+
+\begin_layout Standard
+Now, I have assumed another damped sinusoidal input as,
+\end_layout
+
+\begin_layout LyX-Code
+                                                            v
+\begin_inset Formula $_{i}$
+\end_inset
+
+ = e
+\begin_inset Formula $^{-50t}$
+\end_inset
+
+sin(500
+\begin_inset Formula $\pi$
+\end_inset
+
+t)
+\end_layout
+
+\begin_layout LyX-Code
+                                                             f = 
+\begin_inset Formula $\varpi_{0}/2\pi$
+\end_inset
+
+ = 250 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining the repsonse of the circuit for a damped sinusoidal input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo3 = numpy.linspace(0,0.1,1e5)		
+\end_layout
+
+\begin_layout Plain Layout
+
+vi2 = numpy.exp(-50*t_vo3)*(numpy.sin(500*(math.pi)*t_vo3))
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer3, vo3, vec_transfer3 = sp.lsim(H_new2, vi2, t_vo3)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following is the way I plotted,
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting output of the damped input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(4)	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_vo3, vo3, 'b')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of output voltage of the circuit for a damped sinusoidal
+ input, vo(t) 
+\backslash
+n alpha = 50, frequency = 250')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After giving this as input, we get the response of the circuit as, 
+\end_layout
+
+\begin_layout LyX-Code
+          
+\begin_inset Graphics
+	filename damped_output5.png
+
+\end_inset
+
+         
+\begin_inset Graphics
+	filename damped_output6.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In above graphs, I have shown the output graph and its zoomed version.
+ As we see for a low frequency and huge damping, as the input amplitude
+ decreases rapidly, the output amplitude is almost becoming zero but the
+ frequency is still the same as, 
+\begin_inset Formula $\varpi_{0}$
+\end_inset
+
+ = 250
+\begin_inset Formula $\pi$
+\end_inset
+
+ rad/sec.
+\end_layout
+
+\begin_layout Subsection
+Obtaining the response of the circuit for a unit step function :
+\end_layout
+
+\begin_layout Standard
+In this question we have input as a unit step function whose Laplace Transform
+ can be written as follows,
+\end_layout
+
+\begin_layout LyX-Code
+                                                                 V
+\begin_inset Formula $_{i}(s)$
+\end_inset
+
+ = 
+\begin_inset Formula $\frac{1}{s}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Obtaining the repsonse of the circuit for a unit step response
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Vi_damp_num = numpy.poly1d([1])
+\end_layout
+
+\begin_layout Plain Layout
+
+Vi_damp_denom = numpy.poly1d([1,0])	
+\end_layout
+
+\begin_layout Plain Layout
+
+Vi_damp = sp.lti(Vi_damp_num, Vi_damp_denom)
+\end_layout
+
+\begin_layout Plain Layout
+
+t_vo4, vi3 = sp.impulse(Vi_damp, None, numpy.linspace(0,1e-4,1e5))
+\end_layout
+
+\begin_layout Plain Layout
+
+vi3[0] = 0		
+\end_layout
+
+\begin_layout Plain Layout
+
+t_transfer4, vo4, vec_transfer4 = sp.lsim(H_new2, vi3, t_vo4)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Above is the code for obtaining the output in time domain.
+ Below is the way I have plotted the response.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#Plotting output of the unit step input
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(5)	
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(t_vo4, vo4)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title('Plot of response of the circuit for a unit step input')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('t')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('vo(t)')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+                                          
+\begin_inset Graphics
+	filename unit_step_response.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As we see from the above graph, the peculiar shape of the graph with discontinui
+ty is due to the fact that there are a lot of frequencies present in the
+ unit function.
+ Due to this, what happens is that initially the higher frequencies will
+ be allowed to pass through the high pass filter (lower frequencies removed)
+ resulting in the peak as shown in the beginning and then when the higher
+ frequencies are gone (lower frequencies are left), the graph shows lower
+ values of output voltage due to removal of lower frequenices by the high
+ pass filter.
+\end_layout
+
+\begin_layout Standard
+In the graph, we see a depression as well.
+ That depression happens due to the quality factor being less than 1 (we
+ get it from the transfer function).
+\end_layout
+
+\end_body
+\end_document

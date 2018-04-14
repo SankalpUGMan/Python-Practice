@@ -71,6 +71,8 @@
 \begin_body
 
 \begin_layout Title
+
+\series bold
 LAB 4 REPORT
 \end_layout
 
@@ -79,15 +81,21 @@ Fitting Data to Models
 \end_layout
 
 \begin_layout Author
-Name: Sankalp Saoji
+Name: 
+\bar under
+Sankalp Saoji
 \end_layout
 
 \begin_layout Author
-Roll No: EE16B063
+Roll No: 
+\bar under
+EE16B063
 \end_layout
 
 \begin_layout Author
-Course: EE2703 - Applied Programming Lab
+Course: 
+\bar under
+EE2703 - Applied Programming Lab
 \end_layout
 
 \begin_layout Date
@@ -1271,12 +1279,12 @@ def calcnu(x, x0, model):
 
 \begin_layout Plain Layout
 
-s = calcnu(x, 0.5, 'b')
+s = calcnu(x, 0.5, 1)
 \end_layout
 
 \begin_layout Plain Layout
 
-t = calcnu(x, 0.5, 'c')
+t = calcnu(x, 0.5, 2)
 \end_layout
 
 \begin_layout Plain Layout
@@ -1311,10 +1319,6 @@ The graphs are obtained as below:
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-I have increased the number of values for better accuracy.
 \end_layout
 
 \begin_layout Subsection
@@ -1405,7 +1409,7 @@ def calcnu(x, x0, eps, model):
 
 \begin_layout Plain Layout
 
-	if (model == 'b'):	
+	if (model == 1):	
 \end_layout
 
 \begin_layout Plain Layout
@@ -1426,11 +1430,6 @@ def calcnu(x, x0, eps, model):
 \begin_layout Plain Layout
 
 		q = linspace(x0,40,81)					
-\end_layout
-
-\begin_layout Plain Layout
-
-		for k in q:
 \end_layout
 
 \begin_layout Plain Layout
@@ -1495,7 +1494,7 @@ def calcnu(x, x0, eps, model):
 
 \begin_layout Plain Layout
 
-	    		v = (f - (math.pi)/4)*(2/(math.pi))
+	    		v = ((2*f)/(numpy.pi)-(1/2))
 \end_layout
 
 \begin_layout Plain Layout
@@ -1529,7 +1528,7 @@ def calcnu(x, x0, eps, model):
 
 \begin_layout Plain Layout
 
-		plt.title('Plot of all v values through model b with noise')
+		plt.title('Plot of all v values through model 1')
 \end_layout
 
 \begin_layout Plain Layout
@@ -1540,178 +1539,6 @@ def calcnu(x, x0, eps, model):
 \begin_layout Plain Layout
 
 		plt.show()
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-	if (model == 'c'):	
-\end_layout
-
-\begin_layout Plain Layout
-
-		w = list()
-\end_layout
-
-\begin_layout Plain Layout
-
-		v = list()
-\end_layout
-
-\begin_layout Plain Layout
-
-		d = []
-\end_layout
-
-\begin_layout Plain Layout
-
-		q = linspace(x0,40,81)					
-\end_layout
-
-\begin_layout Plain Layout
-
-		for k in q:
-\end_layout
-
-\begin_layout Plain Layout
-
-			z = numpy.arange(k, x[len(x)-1] + 0.5 ,0.5)    
-\end_layout
-
-\begin_layout Plain Layout
-
-			l = len(z) 
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		P = numpy.zeros((l,2))
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		P[:,0] = numpy.cos(z)/(numpy.sqrt(z))
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		P[:,1] = numpy.sin(z)/(numpy.sqrt(z))
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		b = spe.jv(1,z) + eps*(numpy.random.randn(l))
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		c = lstsq(P,b,rcond=-1)[0]
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		A = c[0]
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		B = c[1]
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		p = (A/(numpy.sqrt(A**2+B**2)))
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		f = numpy.arccos(p)
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		w.append(f)
-\end_layout
-
-\begin_layout Plain Layout
-
-	    		v = (f - (math.pi)/4)*(2/(math.pi))
-\end_layout
-
-\begin_layout Plain Layout
-
-			d.append(v)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.figure(1)
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.plot(x,d,'ro')
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.xlabel('x')
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.ylabel('v')
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.title('Plot of all v values through model c with noise')
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.grid(True)
-\end_layout
-
-\begin_layout Plain Layout
-
-		plt.show()
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-s = calcnu(x, 0.5, 0.001, 'b')
-\end_layout
-
-\begin_layout Plain Layout
-
-t = calcnu(x, 0.5, 0.001, 'c')
-\end_layout
-
-\begin_layout Plain Layout
-
-print(s)
-\end_layout
-
-\begin_layout Plain Layout
-
-print(t)
-\end_layout
-
-\begin_layout Plain Layout
-
-	    
 \end_layout
 
 \end_inset
@@ -1760,69 +1587,6 @@ Following two are the graphs with eps = 0.001.
 \begin_layout Standard
 Even with a small eps change , there is a significant difference in the
  graphs and the noise added.
-\end_layout
-
-\begin_layout Subsection
-Effect of varying the number of measurements:
-\end_layout
-
-\begin_layout Standard
-In the below program, I have varied the number of measurements by changing
- the differenece between two points fro 0.5 to 0.25.
-\end_layout
-
-\begin_layout Standard
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-#Changing the number of measurements
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-q = linspace(x0,40,161)					
-\end_layout
-
-\begin_layout Plain Layout
-
-		for k in q:
-\end_layout
-
-\begin_layout Plain Layout
-
-			z = numpy.arange(k, x[len(x)-1] + 0.5 ,0.25)   
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Following are the graphs of errors obtained when the number of measurements
- was increased.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename measurement_variation1.png
-
-\end_inset
-
- 
-\begin_inset Graphics
-	filename measurement_variation2.png
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
