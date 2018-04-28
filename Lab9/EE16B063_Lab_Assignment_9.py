@@ -4,7 +4,7 @@
 
 from pylab import *
 import matplotlib.pyplot as plt
-"""
+
 #Calculating fourier and inverse fourier transform
 
 x = rand(100)
@@ -202,7 +202,7 @@ plt.xlabel(r"$\omega$",size = 16)
 plt.grid(True)
 plt.savefig("complex_sinusoid.png")
 plt.show()
-"""
+
 #Obtaining the spectrum of e^(-t^2/2)
 
 #From python fft function

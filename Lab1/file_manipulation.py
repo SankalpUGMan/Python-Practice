@@ -3,7 +3,7 @@ with open("ques3_doc", "r") as f:	 #opens file for reading in string format
 
 words = contents.split()	 	 #breaking the string in words form
 
-d = {}				 	 #creating an empty dictionary/array for storage and checking
+d = {}				 	 #creating an empty dictionary/array for storage and checking with the help of curly bracs
 
 for i in words:				 #i is a string now
 		i = i.lower() 		 #lowers down all capitals (an optional step)

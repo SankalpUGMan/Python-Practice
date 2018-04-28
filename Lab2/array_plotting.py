@@ -14,4 +14,3 @@ plt.title('Plot of $1/(1+x^{2})$')
 plt.xlabel('x')
 plt.ylabel('$1/(1+x^{2})$')
 plt.show()
-

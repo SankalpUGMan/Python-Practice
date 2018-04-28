@@ -43,5 +43,3 @@ plt.xlabel('x')
 plt.ylabel('$\int_{0}^{x} dx/{1+x^{2}}$ error')
 plt.title('Plot of $\int_{0}^{x} dx/{1+x^{2}}$ error')
 plt.show()
-
-

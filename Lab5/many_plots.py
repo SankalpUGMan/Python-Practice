@@ -17,7 +17,8 @@ a = numpy.linspace(-0.5, 0.5, Nx)
 b = numpy.linspace(-0.5, 0.5, Ny)
 
 X,Y = meshgrid(a,b)
-#print X, Y
+print len(X)
+print len(Y)
 
 ii = numpy.where(X*X + Y*Y <= 0.35*0.35)							#numpy.where stores indices of the matrix
 phi[ii] = 1.0
@@ -33,6 +34,9 @@ for k in range(Niter):										#we want the error between previous value and th
 	phi[0,1:-1] = phi[1,1:-1]
 	phi[ii] = 1.0
 	errors[k] = numpy.max(abs(phi-oldphi))
+
+print len(phi)
+print phi.shape
 
 #surface plot
 figure = figure(8)

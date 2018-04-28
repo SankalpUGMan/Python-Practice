@@ -15,9 +15,9 @@ print(d)
 e = array(([3],[4],[1],[5]), dtype = complex)
 print(e)
 
-print(c.size)   					   #list elements don't have size, shape but has length
+print(c.size)   					  #list elements don't have size, shape but has length
 print(c.shape)
 print(len(a))
 
-k = [5 for i in range(7)]            			    # This is a great technique to make all the elements of a list equal to a particular number. 
+k = [5 for i in range(7)]            			  # This is a great technique to make all the elements of a list equal to a particular number. 
 print(k) 
